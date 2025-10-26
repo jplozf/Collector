@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>342</width>
+    <height>637</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tabLauncher">
+       <attribute name="icon">
+        <iconset resource="Collector.qrc">
+         <normaloff>:/icons/Start.png</normaloff>:/icons/Start.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Launcher</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QTreeView" name="tvwLauncher"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLineEdit" name="txtTopicName"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnAddTopic">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="Collector.qrc">
+                <normaloff>:/icons/Plus.png</normaloff>:/icons/Plus.png</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QPushButton" name="btnUp">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="Collector.qrc">
+                <normaloff>:/icons/Arrow1 Up.png</normaloff>:/icons/Arrow1 Up.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnDown">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="Collector.qrc">
+                <normaloff>:/icons/Arrow1 Down.png</normaloff>:/icons/Arrow1 Down.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnDelete">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="Collector.qrc">
+                <normaloff>:/icons/Trash.png</normaloff>:/icons/Trash.png</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabSettings">
+       <attribute name="icon">
+        <iconset resource="Collector.qrc">
+         <normaloff>:/icons/Gear.png</normaloff>:/icons/Gear.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Settings</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QCheckBox" name="chkOpenWithSystemDefault">
+            <property name="text">
+             <string>Open wiith system default</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLineEdit" name="txtOpenWith"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnBrowseOpenWith">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="Collector.qrc">
+                <normaloff>:/icons/Folder2.png</normaloff>:/icons/Folder2.png</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTreeView" name="tvwBrowser"/>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="lblShortcutPath">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLineEdit" name="txtShortcutName"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnAddShortcut">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="Collector.qrc">
+              <normaloff>:/icons/Plus.png</normaloff>:/icons/Plus.png</iconset>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>342</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="Collector.qrc"/>
+ </resources>
+ <connections/>
+</ui>
