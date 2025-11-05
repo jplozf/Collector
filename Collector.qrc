@@ -1,209 +1,1234 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/0.png</file>
-        <file>icons/1.png</file>
-        <file>icons/2.png</file>
-        <file>icons/3.png</file>
-        <file>icons/4.png</file>
-        <file>icons/5.png</file>
-        <file>icons/6.png</file>
-        <file>icons/7.png</file>
-        <file>icons/8.png</file>
-        <file>icons/9.png</file>
-        <file>icons/Alarme.png</file>
-        <file>icons/Ampersand.png</file>
-        <file>icons/Application.png</file>
-        <file>icons/Applications.png</file>
-        <file>icons/Arrow1 Down.png</file>
-        <file>icons/Arrow1 DownLeft.png</file>
-        <file>icons/Arrow1 DownRight.png</file>
-        <file>icons/Arrow1 Left.png</file>
-        <file>icons/Arrow1 Right.png</file>
-        <file>icons/Arrow1 Up.png</file>
-        <file>icons/Arrow1 UpLeft.png</file>
-        <file>icons/Arrow1 UpRight.png</file>
-        <file>icons/Arrow2 Down.png</file>
-        <file>icons/Arrow2 DownLeft.png</file>
-        <file>icons/Arrow2 DownRight.png</file>
-        <file>icons/Arrow2 Left.png</file>
-        <file>icons/Arrow2 Right.png</file>
-        <file>icons/Arrow2 Up.png</file>
-        <file>icons/Arrow2 UpLeft.png</file>
-        <file>icons/Arrow2 UpRight.png</file>
-        <file>icons/Arrow3 Down.png</file>
-        <file>icons/Arrow3 Left.png</file>
-        <file>icons/Arrow3 Right.png</file>
-        <file>icons/Arrow3 Up.png</file>
-        <file>icons/Attach.png</file>
-        <file>icons/Audio Message.png</file>
-        <file>icons/Back Top.png</file>
-        <file>icons/Back.png</file>
-        <file>icons/Bubble 1.png</file>
-        <file>icons/Bubble 3.png</file>
-        <file>icons/Burn.png</file>
-        <file>icons/Calc.png</file>
-        <file>icons/Calendar.png</file>
-        <file>icons/Cancel.png</file>
-        <file>icons/Car.png</file>
-        <file>icons/Card1.png</file>
-        <file>icons/Card2.png</file>
-        <file>icons/Card3.png</file>
-        <file>icons/Card4.png</file>
-        <file>icons/Cart.png</file>
-        <file>icons/Cart2.png</file>
-        <file>icons/Cd.png</file>
-        <file>icons/Clipboard Copy.png</file>
-        <file>icons/Clipboard Cut.png</file>
-        <file>icons/Clipboard Paste.png</file>
-        <file>icons/Clock.png</file>
-        <file>icons/Computer.png</file>
-        <file>icons/Contact.png</file>
-        <file>icons/Copyright.png</file>
-        <file>icons/Cube.png</file>
-        <file>icons/Currency Dollar.png</file>
-        <file>icons/Currency Euro.png</file>
-        <file>icons/Currency Pound.png</file>
-        <file>icons/Database.png</file>
-        <file>icons/Direction Diag1.png</file>
-        <file>icons/Direction Diag2.png</file>
-        <file>icons/Direction Horz.png</file>
-        <file>icons/Direction Vert.png</file>
-        <file>icons/Directions.png</file>
-        <file>icons/Discuss.png</file>
-        <file>icons/Document New.png</file>
-        <file>icons/Document.png</file>
-        <file>icons/Document2.png</file>
-        <file>icons/Dots Down.png</file>
-        <file>icons/Dots Up.png</file>
-        <file>icons/Dots.png</file>
-        <file>icons/Download.png</file>
-        <file>icons/Email.png</file>
-        <file>icons/Exclamation.png</file>
-        <file>icons/Fbook.png</file>
-        <file>icons/Flag.png</file>
-        <file>icons/Folder.png</file>
-        <file>icons/Folder2.png</file>
-        <file>icons/Folder3.png</file>
-        <file>icons/Footprint.png</file>
-        <file>icons/Forbidden.png</file>
-        <file>icons/Full Screen.png</file>
-        <file>icons/Full Size.png</file>
-        <file>icons/Game.png</file>
-        <file>icons/Gear.png</file>
-        <file>icons/Globe.png</file>
-        <file>icons/Go In.png</file>
-        <file>icons/Go Out.png</file>
-        <file>icons/Graph.png</file>
-        <file>icons/Hand.png</file>
-        <file>icons/Hdd Network.png</file>
-        <file>icons/Hdd.png</file>
-        <file>icons/Health.png</file>
-        <file>icons/Heart.png</file>
-        <file>icons/Home.png</file>
-        <file>icons/Home2.png</file>
-        <file>icons/Info.png</file>
-        <file>icons/Info2.png</file>
-        <file>icons/Ipod.png</file>
-        <file>icons/Key.png</file>
-        <file>icons/Light.png</file>
-        <file>icons/Link.png</file>
-        <file>icons/Lock Open.png</file>
-        <file>icons/Lock.png</file>
-        <file>icons/Loop.png</file>
-        <file>icons/Luggage.png</file>
-        <file>icons/Mail.png</file>
-        <file>icons/Man.png</file>
-        <file>icons/Microphone.png</file>
-        <file>icons/Minus.png</file>
-        <file>icons/Mobile.png</file>
-        <file>icons/Mouse.png</file>
-        <file>icons/Movie.png</file>
-        <file>icons/Music.png</file>
-        <file>icons/Music2.png</file>
-        <file>icons/Nuke.png</file>
-        <file>icons/Ok.png</file>
-        <file>icons/Paragraph.png</file>
-        <file>icons/Percent.png</file>
-        <file>icons/Phone.png</file>
-        <file>icons/Photo.png</file>
-        <file>icons/Picture.png</file>
-        <file>icons/Player Eject.png</file>
-        <file>icons/Player FastFwd.png</file>
-        <file>icons/Player FastRev.png</file>
-        <file>icons/Player Next.png</file>
-        <file>icons/Player Pause.png</file>
-        <file>icons/Player Play.png</file>
-        <file>icons/Player Previous.png</file>
-        <file>icons/Player Record.png</file>
-        <file>icons/Player Stop.png</file>
-        <file>icons/Plus.png</file>
-        <file>icons/Podcast.png</file>
-        <file>icons/Pointer.png</file>
-        <file>icons/Poll.png</file>
-        <file>icons/Printer.png</file>
-        <file>icons/Puzzle.png</file>
-        <file>icons/Question.png</file>
-        <file>icons/Reduced Size.png</file>
-        <file>icons/Refresh.png</file>
-        <file>icons/Rss 1.png</file>
-        <file>icons/Rss 2.png</file>
-        <file>icons/Save.png</file>
-        <file>icons/Screen.png</file>
-        <file>icons/Search.png</file>
-        <file>icons/Security.png</file>
-        <file>icons/Sitemap.png</file>
-        <file>icons/Size Diag1.png</file>
-        <file>icons/Size Diag2.png</file>
-        <file>icons/Size Horz.png</file>
-        <file>icons/Size Vert.png</file>
-        <file>icons/Sleep.png</file>
-        <file>icons/Smiley1.png</file>
-        <file>icons/Smiley2.png</file>
-        <file>icons/Smiley3.png</file>
-        <file>icons/Sound Minus.png</file>
-        <file>icons/Sound Off.png</file>
-        <file>icons/Sound On.png</file>
-        <file>icons/Sound Plus.png</file>
-        <file>icons/Standby.png</file>
-        <file>icons/Star.png</file>
-        <file>icons/Start.png</file>
-        <file>icons/Stats 3.png</file>
-        <file>icons/Stats.png</file>
-        <file>icons/Stats2.png</file>
-        <file>icons/Table.png</file>
-        <file>icons/Tag.png</file>
-        <file>icons/Tape.png</file>
-        <file>icons/Target.png</file>
-        <file>icons/Text Large.png</file>
-        <file>icons/Text Meduim.png</file>
-        <file>icons/Text Minus.png</file>
-        <file>icons/Text Plus.png</file>
-        <file>icons/Text Small.png</file>
-        <file>icons/Thumb Down.png</file>
-        <file>icons/Thumb Up.png</file>
-        <file>icons/Tool.png</file>
-        <file>icons/Tool2.png</file>
-        <file>icons/Trackback.png</file>
-        <file>icons/Trash.png</file>
-        <file>icons/Travel.png</file>
-        <file>icons/Tree.png</file>
-        <file>icons/Tv.png</file>
-        <file>icons/User.png</file>
-        <file>icons/Video.png</file>
-        <file>icons/Wait.png</file>
-        <file>icons/Warning.png</file>
-        <file>icons/Weather Cloud.png</file>
-        <file>icons/Weather Could Sun.png</file>
-        <file>icons/Weather Rain.png</file>
-        <file>icons/Weather Snow.png</file>
-        <file>icons/Weather Sun.png</file>
-        <file>icons/Wizard.png</file>
-        <file>icons/Woman.png</file>
-        <file>icons/Wordpress.png</file>
-        <file>icons/Write.png</file>
-        <file>icons/Write2.png</file>
-        <file>icons/Write3.png</file>
-        <file>icons/Zoom In.png</file>
-        <file>icons/Zoom Out.png</file>
+        <file>icons/blue/0.png</file>
+        <file>icons/blue/1.png</file>
+        <file>icons/blue/2.png</file>
+        <file>icons/blue/3.png</file>
+        <file>icons/blue/4.png</file>
+        <file>icons/blue/5.png</file>
+        <file>icons/blue/6.png</file>
+        <file>icons/blue/7.png</file>
+        <file>icons/blue/8.png</file>
+        <file>icons/blue/9.png</file>
+        <file>icons/blue/Alarme.png</file>
+        <file>icons/blue/Ampersand.png</file>
+        <file>icons/blue/Application.png</file>
+        <file>icons/blue/Applications.png</file>
+        <file>icons/blue/Arrow1 Down.png</file>
+        <file>icons/blue/Arrow1 DownLeft.png</file>
+        <file>icons/blue/Arrow1 DownRight.png</file>
+        <file>icons/blue/Arrow1 Left.png</file>
+        <file>icons/blue/Arrow1 Right.png</file>
+        <file>icons/blue/Arrow1 Up.png</file>
+        <file>icons/blue/Arrow1 UpLeft.png</file>
+        <file>icons/blue/Arrow1 UpRight.png</file>
+        <file>icons/blue/Arrow2 Down.png</file>
+        <file>icons/blue/Arrow2 DownLeft.png</file>
+        <file>icons/blue/Arrow2 DownRight.png</file>
+        <file>icons/blue/Arrow2 Left.png</file>
+        <file>icons/blue/Arrow2 Right.png</file>
+        <file>icons/blue/Arrow2 Up.png</file>
+        <file>icons/blue/Arrow2 UpLeft.png</file>
+        <file>icons/blue/Arrow2 UpRight.png</file>
+        <file>icons/blue/Arrow3 Down.png</file>
+        <file>icons/blue/Arrow3 Left.png</file>
+        <file>icons/blue/Arrow3 Right.png</file>
+        <file>icons/blue/Arrow3 Up.png</file>
+        <file>icons/blue/Attach.png</file>
+        <file>icons/blue/Audio Message.png</file>
+        <file>icons/blue/Back Top.png</file>
+        <file>icons/blue/Back.png</file>
+        <file>icons/blue/Bubble 1.png</file>
+        <file>icons/blue/Bubble 3.png</file>
+        <file>icons/blue/Burn.png</file>
+        <file>icons/blue/Calc.png</file>
+        <file>icons/blue/Calendar.png</file>
+        <file>icons/blue/Cancel.png</file>
+        <file>icons/blue/Car.png</file>
+        <file>icons/blue/Card1.png</file>
+        <file>icons/blue/Card2.png</file>
+        <file>icons/blue/Card3.png</file>
+        <file>icons/blue/Card4.png</file>
+        <file>icons/blue/Cart.png</file>
+        <file>icons/blue/Cart2.png</file>
+        <file>icons/blue/Cd.png</file>
+        <file>icons/blue/Clipboard Copy.png</file>
+        <file>icons/blue/Clipboard Cut.png</file>
+        <file>icons/blue/Clipboard Paste.png</file>
+        <file>icons/blue/Clock.png</file>
+        <file>icons/blue/Computer.png</file>
+        <file>icons/blue/Contact.png</file>
+        <file>icons/blue/Copyright.png</file>
+        <file>icons/blue/Cube.png</file>
+        <file>icons/blue/Currency Dollar.png</file>
+        <file>icons/blue/Currency Euro.png</file>
+        <file>icons/blue/Currency Pound.png</file>
+        <file>icons/blue/Database.png</file>
+        <file>icons/blue/Direction Diag1.png</file>
+        <file>icons/blue/Direction Diag2.png</file>
+        <file>icons/blue/Direction Horz.png</file>
+        <file>icons/blue/Direction Vert.png</file>
+        <file>icons/blue/Directions.png</file>
+        <file>icons/blue/Discuss.png</file>
+        <file>icons/blue/Document New.png</file>
+        <file>icons/blue/Document.png</file>
+        <file>icons/blue/Document2.png</file>
+        <file>icons/blue/Dots Down.png</file>
+        <file>icons/blue/Dots Up.png</file>
+        <file>icons/blue/Dots.png</file>
+        <file>icons/blue/Download.png</file>
+        <file>icons/blue/Email.png</file>
+        <file>icons/blue/Exclamation.png</file>
+        <file>icons/blue/Fbook.png</file>
+        <file>icons/blue/Flag.png</file>
+        <file>icons/blue/Folder.png</file>
+        <file>icons/blue/Folder2.png</file>
+        <file>icons/blue/Folder3.png</file>
+        <file>icons/blue/Footprint.png</file>
+        <file>icons/blue/Forbidden.png</file>
+        <file>icons/blue/Full Screen.png</file>
+        <file>icons/blue/Full Size.png</file>
+        <file>icons/blue/Game.png</file>
+        <file>icons/blue/Gear.png</file>
+        <file>icons/blue/Globe.png</file>
+        <file>icons/blue/Go In.png</file>
+        <file>icons/blue/Go Out.png</file>
+        <file>icons/blue/Graph.png</file>
+        <file>icons/blue/Hand.png</file>
+        <file>icons/blue/Hdd Network.png</file>
+        <file>icons/blue/Hdd.png</file>
+        <file>icons/blue/Health.png</file>
+        <file>icons/blue/Heart.png</file>
+        <file>icons/blue/Home.png</file>
+        <file>icons/blue/Home2.png</file>
+        <file>icons/blue/Info.png</file>
+        <file>icons/blue/Info2.png</file>
+        <file>icons/blue/Ipod.png</file>
+        <file>icons/blue/Key.png</file>
+        <file>icons/blue/Light.png</file>
+        <file>icons/blue/Link.png</file>
+        <file>icons/blue/Lock Open.png</file>
+        <file>icons/blue/Lock.png</file>
+        <file>icons/blue/Loop.png</file>
+        <file>icons/blue/Luggage.png</file>
+        <file>icons/blue/Mail.png</file>
+        <file>icons/blue/Man.png</file>
+        <file>icons/blue/Microphone.png</file>
+        <file>icons/blue/Minus.png</file>
+        <file>icons/blue/Mobile.png</file>
+        <file>icons/blue/Mouse.png</file>
+        <file>icons/blue/Movie.png</file>
+        <file>icons/blue/Music.png</file>
+        <file>icons/blue/Music2.png</file>
+        <file>icons/blue/Nuke.png</file>
+        <file>icons/blue/Ok.png</file>
+        <file>icons/blue/Paragraph.png</file>
+        <file>icons/blue/Percent.png</file>
+        <file>icons/blue/Phone.png</file>
+        <file>icons/blue/Photo.png</file>
+        <file>icons/blue/Picture.png</file>
+        <file>icons/blue/Player Eject.png</file>
+        <file>icons/blue/Player FastFwd.png</file>
+        <file>icons/blue/Player FastRev.png</file>
+        <file>icons/blue/Player Next.png</file>
+        <file>icons/blue/Player Pause.png</file>
+        <file>icons/blue/Player Play.png</file>
+        <file>icons/blue/Player Previous.png</file>
+        <file>icons/blue/Player Record.png</file>
+        <file>icons/blue/Player Stop.png</file>
+        <file>icons/blue/Plus.png</file>
+        <file>icons/blue/Podcast.png</file>
+        <file>icons/blue/Pointer.png</file>
+        <file>icons/blue/Poll.png</file>
+        <file>icons/blue/Printer.png</file>
+        <file>icons/blue/Puzzle.png</file>
+        <file>icons/blue/Question.png</file>
+        <file>icons/blue/Reduced Size.png</file>
+        <file>icons/blue/Refresh.png</file>
+        <file>icons/blue/Rss 1.png</file>
+        <file>icons/blue/Rss 2.png</file>
+        <file>icons/blue/Save.png</file>
+        <file>icons/blue/Screen.png</file>
+        <file>icons/blue/Search.png</file>
+        <file>icons/blue/Security.png</file>
+        <file>icons/blue/Sitemap.png</file>
+        <file>icons/blue/Size Diag1.png</file>
+        <file>icons/blue/Size Diag2.png</file>
+        <file>icons/blue/Size Horz.png</file>
+        <file>icons/blue/Size Vert.png</file>
+        <file>icons/blue/Sleep.png</file>
+        <file>icons/blue/Smiley1.png</file>
+        <file>icons/blue/Smiley2.png</file>
+        <file>icons/blue/Smiley3.png</file>
+        <file>icons/blue/Sound Minus.png</file>
+        <file>icons/blue/Sound Off.png</file>
+        <file>icons/blue/Sound On.png</file>
+        <file>icons/blue/Sound Plus.png</file>
+        <file>icons/blue/Standby.png</file>
+        <file>icons/blue/Star.png</file>
+        <file>icons/blue/Start.png</file>
+        <file>icons/blue/Stats 3.png</file>
+        <file>icons/blue/Stats.png</file>
+        <file>icons/blue/Stats2.png</file>
+        <file>icons/blue/Table.png</file>
+        <file>icons/blue/Tag.png</file>
+        <file>icons/blue/Tape.png</file>
+        <file>icons/blue/Target.png</file>
+        <file>icons/blue/Text Large.png</file>
+        <file>icons/blue/Text Meduim.png</file>
+        <file>icons/blue/Text Minus.png</file>
+        <file>icons/blue/Text Plus.png</file>
+        <file>icons/blue/Text Small.png</file>
+        <file>icons/blue/Thumb Down.png</file>
+        <file>icons/blue/Thumb Up.png</file>
+        <file>icons/blue/Tool.png</file>
+        <file>icons/blue/Tool2.png</file>
+        <file>icons/blue/Trackback.png</file>
+        <file>icons/blue/Trash.png</file>
+        <file>icons/blue/Travel.png</file>
+        <file>icons/blue/Tree.png</file>
+        <file>icons/blue/Tv.png</file>
+        <file>icons/blue/User.png</file>
+        <file>icons/blue/Video.png</file>
+        <file>icons/blue/Wait.png</file>
+        <file>icons/blue/Warning.png</file>
+        <file>icons/blue/Weather Cloud.png</file>
+        <file>icons/blue/Weather Could Sun.png</file>
+        <file>icons/blue/Weather Rain.png</file>
+        <file>icons/blue/Weather Snow.png</file>
+        <file>icons/blue/Weather Sun.png</file>
+        <file>icons/blue/Wizard.png</file>
+        <file>icons/blue/Woman.png</file>
+        <file>icons/blue/Wordpress.png</file>
+        <file>icons/blue/Write.png</file>
+        <file>icons/blue/Write2.png</file>
+        <file>icons/blue/Write3.png</file>
+        <file>icons/blue/Zoom In.png</file>
+        <file>icons/blue/Zoom Out.png</file>
+        <file>icons/green/0.png</file>
+        <file>icons/green/1.png</file>
+        <file>icons/green/2.png</file>
+        <file>icons/green/3.png</file>
+        <file>icons/green/4.png</file>
+        <file>icons/green/5.png</file>
+        <file>icons/green/6.png</file>
+        <file>icons/green/7.png</file>
+        <file>icons/green/8.png</file>
+        <file>icons/green/9.png</file>
+        <file>icons/green/Alarme.png</file>
+        <file>icons/green/Ampersand.png</file>
+        <file>icons/green/Application.png</file>
+        <file>icons/green/Applications.png</file>
+        <file>icons/green/Arrow1 Down.png</file>
+        <file>icons/green/Arrow1 DownLeft.png</file>
+        <file>icons/green/Arrow1 DownRight.png</file>
+        <file>icons/green/Arrow1 Left.png</file>
+        <file>icons/green/Arrow1 Right.png</file>
+        <file>icons/green/Arrow1 Up.png</file>
+        <file>icons/green/Arrow1 UpLeft.png</file>
+        <file>icons/green/Arrow1 UpRight.png</file>
+        <file>icons/green/Arrow2 Down.png</file>
+        <file>icons/green/Arrow2 DownLeft.png</file>
+        <file>icons/green/Arrow2 DownRight.png</file>
+        <file>icons/green/Arrow2 Left.png</file>
+        <file>icons/green/Arrow2 Right.png</file>
+        <file>icons/green/Arrow2 Up.png</file>
+        <file>icons/green/Arrow2 UpLeft.png</file>
+        <file>icons/green/Arrow2 UpRight.png</file>
+        <file>icons/green/Arrow3 Down.png</file>
+        <file>icons/green/Arrow3 Left.png</file>
+        <file>icons/green/Arrow3 Right.png</file>
+        <file>icons/green/Arrow3 Up.png</file>
+        <file>icons/green/Attach.png</file>
+        <file>icons/green/Audio Message.png</file>
+        <file>icons/green/Back Top.png</file>
+        <file>icons/green/Back.png</file>
+        <file>icons/green/Bubble 1.png</file>
+        <file>icons/green/Bubble 3.png</file>
+        <file>icons/green/Burn.png</file>
+        <file>icons/green/Calc.png</file>
+        <file>icons/green/Calendar.png</file>
+        <file>icons/green/Cancel.png</file>
+        <file>icons/green/Car.png</file>
+        <file>icons/green/Card1.png</file>
+        <file>icons/green/Card2.png</file>
+        <file>icons/green/Card3.png</file>
+        <file>icons/green/Card4.png</file>
+        <file>icons/green/Cart.png</file>
+        <file>icons/green/Cart2.png</file>
+        <file>icons/green/Cd.png</file>
+        <file>icons/green/Clipboard Copy.png</file>
+        <file>icons/green/Clipboard Cut.png</file>
+        <file>icons/green/Clipboard Paste.png</file>
+        <file>icons/green/Clock.png</file>
+        <file>icons/green/Computer.png</file>
+        <file>icons/green/Contact.png</file>
+        <file>icons/green/Copyright.png</file>
+        <file>icons/green/Cube.png</file>
+        <file>icons/green/Currency Dollar.png</file>
+        <file>icons/green/Currency Euro.png</file>
+        <file>icons/green/Currency Pound.png</file>
+        <file>icons/green/Database.png</file>
+        <file>icons/green/Direction Diag1.png</file>
+        <file>icons/green/Direction Diag2.png</file>
+        <file>icons/green/Direction Horz.png</file>
+        <file>icons/green/Direction Vert.png</file>
+        <file>icons/green/Directions.png</file>
+        <file>icons/green/Discuss.png</file>
+        <file>icons/green/Document New.png</file>
+        <file>icons/green/Document.png</file>
+        <file>icons/green/Document2.png</file>
+        <file>icons/green/Dots Down.png</file>
+        <file>icons/green/Dots Up.png</file>
+        <file>icons/green/Dots.png</file>
+        <file>icons/green/Download.png</file>
+        <file>icons/green/Email.png</file>
+        <file>icons/green/Exclamation.png</file>
+        <file>icons/green/Fbook.png</file>
+        <file>icons/green/Flag.png</file>
+        <file>icons/green/Folder.png</file>
+        <file>icons/green/Folder2.png</file>
+        <file>icons/green/Folder3.png</file>
+        <file>icons/green/Footprint.png</file>
+        <file>icons/green/Forbidden.png</file>
+        <file>icons/green/Full Screen.png</file>
+        <file>icons/green/Full Size.png</file>
+        <file>icons/green/Game.png</file>
+        <file>icons/green/Gear.png</file>
+        <file>icons/green/Globe.png</file>
+        <file>icons/green/Go In.png</file>
+        <file>icons/green/Go Out.png</file>
+        <file>icons/green/Graph.png</file>
+        <file>icons/green/Hand.png</file>
+        <file>icons/green/Hdd Network.png</file>
+        <file>icons/green/Hdd.png</file>
+        <file>icons/green/Health.png</file>
+        <file>icons/green/Heart.png</file>
+        <file>icons/green/Home.png</file>
+        <file>icons/green/Home2.png</file>
+        <file>icons/green/Info.png</file>
+        <file>icons/green/Info2.png</file>
+        <file>icons/green/Ipod.png</file>
+        <file>icons/green/Key.png</file>
+        <file>icons/green/Light.png</file>
+        <file>icons/green/Link.png</file>
+        <file>icons/green/Lock Open.png</file>
+        <file>icons/green/Lock.png</file>
+        <file>icons/green/Loop.png</file>
+        <file>icons/green/Luggage.png</file>
+        <file>icons/green/Mail.png</file>
+        <file>icons/green/Man.png</file>
+        <file>icons/green/Microphone.png</file>
+        <file>icons/green/Minus.png</file>
+        <file>icons/green/Mobile.png</file>
+        <file>icons/green/Mouse.png</file>
+        <file>icons/green/Movie.png</file>
+        <file>icons/green/Music.png</file>
+        <file>icons/green/Music2.png</file>
+        <file>icons/green/Nuke.png</file>
+        <file>icons/green/Ok.png</file>
+        <file>icons/green/Paragraph.png</file>
+        <file>icons/green/Percent.png</file>
+        <file>icons/green/Phone.png</file>
+        <file>icons/green/Photo.png</file>
+        <file>icons/green/Picture.png</file>
+        <file>icons/green/Player Eject.png</file>
+        <file>icons/green/Player FastFwd.png</file>
+        <file>icons/green/Player FastRev.png</file>
+        <file>icons/green/Player Next.png</file>
+        <file>icons/green/Player Pause.png</file>
+        <file>icons/green/Player Play.png</file>
+        <file>icons/green/Player Previous.png</file>
+        <file>icons/green/Player Record.png</file>
+        <file>icons/green/Player Stop.png</file>
+        <file>icons/green/Plus.png</file>
+        <file>icons/green/Podcast.png</file>
+        <file>icons/green/Pointer.png</file>
+        <file>icons/green/Poll.png</file>
+        <file>icons/green/Printer.png</file>
+        <file>icons/green/Puzzle.png</file>
+        <file>icons/green/Question.png</file>
+        <file>icons/green/Reduced Size.png</file>
+        <file>icons/green/Refresh.png</file>
+        <file>icons/green/Rss 1.png</file>
+        <file>icons/green/Rss 2.png</file>
+        <file>icons/green/Save.png</file>
+        <file>icons/green/Screen.png</file>
+        <file>icons/green/Search.png</file>
+        <file>icons/green/Security.png</file>
+        <file>icons/green/Sitemap.png</file>
+        <file>icons/green/Size Diag1.png</file>
+        <file>icons/green/Size Diag2.png</file>
+        <file>icons/green/Size Horz.png</file>
+        <file>icons/green/Size Vert.png</file>
+        <file>icons/green/Sleep.png</file>
+        <file>icons/green/Smiley1.png</file>
+        <file>icons/green/Smiley2.png</file>
+        <file>icons/green/Smiley3.png</file>
+        <file>icons/green/Sound Minus.png</file>
+        <file>icons/green/Sound Off.png</file>
+        <file>icons/green/Sound On.png</file>
+        <file>icons/green/Sound Plus.png</file>
+        <file>icons/green/Standby.png</file>
+        <file>icons/green/Star.png</file>
+        <file>icons/green/Start.png</file>
+        <file>icons/green/Stats 3.png</file>
+        <file>icons/green/Stats.png</file>
+        <file>icons/green/Stats2.png</file>
+        <file>icons/green/Table.png</file>
+        <file>icons/green/Tag.png</file>
+        <file>icons/green/Tape.png</file>
+        <file>icons/green/Target.png</file>
+        <file>icons/green/Text Large.png</file>
+        <file>icons/green/Text Meduim.png</file>
+        <file>icons/green/Text Minus.png</file>
+        <file>icons/green/Text Plus.png</file>
+        <file>icons/green/Text Small.png</file>
+        <file>icons/green/Thumb Down.png</file>
+        <file>icons/green/Thumb Up.png</file>
+        <file>icons/green/Tool.png</file>
+        <file>icons/green/Tool2.png</file>
+        <file>icons/green/Trackback.png</file>
+        <file>icons/green/Trash.png</file>
+        <file>icons/green/Travel.png</file>
+        <file>icons/green/Tree.png</file>
+        <file>icons/green/Tv.png</file>
+        <file>icons/green/User.png</file>
+        <file>icons/green/Video.png</file>
+        <file>icons/green/Wait.png</file>
+        <file>icons/green/Warning.png</file>
+        <file>icons/green/Weather Cloud.png</file>
+        <file>icons/green/Weather Could Sun.png</file>
+        <file>icons/green/Weather Rain.png</file>
+        <file>icons/green/Weather Snow.png</file>
+        <file>icons/green/Weather Sun.png</file>
+        <file>icons/green/Wizard.png</file>
+        <file>icons/green/Woman.png</file>
+        <file>icons/green/Wordpress.png</file>
+        <file>icons/green/Write.png</file>
+        <file>icons/green/Write2.png</file>
+        <file>icons/green/Write3.png</file>
+        <file>icons/green/Zoom In.png</file>
+        <file>icons/green/Zoom Out.png</file>
+        <file>icons/grey/0.png</file>
+        <file>icons/grey/1.png</file>
+        <file>icons/grey/2.png</file>
+        <file>icons/grey/3.png</file>
+        <file>icons/grey/4.png</file>
+        <file>icons/grey/5.png</file>
+        <file>icons/grey/6.png</file>
+        <file>icons/grey/7.png</file>
+        <file>icons/grey/8.png</file>
+        <file>icons/grey/9.png</file>
+        <file>icons/grey/Alarme.png</file>
+        <file>icons/grey/Ampersand.png</file>
+        <file>icons/grey/Application.png</file>
+        <file>icons/grey/Applications.png</file>
+        <file>icons/grey/Arrow1 Down.png</file>
+        <file>icons/grey/Arrow1 DownLeft.png</file>
+        <file>icons/grey/Arrow1 DownRight.png</file>
+        <file>icons/grey/Arrow1 Left.png</file>
+        <file>icons/grey/Arrow1 Right.png</file>
+        <file>icons/grey/Arrow1 Up.png</file>
+        <file>icons/grey/Arrow1 UpLeft.png</file>
+        <file>icons/grey/Arrow1 UpRight.png</file>
+        <file>icons/grey/Arrow2 Down.png</file>
+        <file>icons/grey/Arrow2 DownLeft.png</file>
+        <file>icons/grey/Arrow2 DownRight.png</file>
+        <file>icons/grey/Arrow2 Left.png</file>
+        <file>icons/grey/Arrow2 Right.png</file>
+        <file>icons/grey/Arrow2 Up.png</file>
+        <file>icons/grey/Arrow2 UpLeft.png</file>
+        <file>icons/grey/Arrow2 UpRight.png</file>
+        <file>icons/grey/Arrow3 Down.png</file>
+        <file>icons/grey/Arrow3 Left.png</file>
+        <file>icons/grey/Arrow3 Right.png</file>
+        <file>icons/grey/Arrow3 Up.png</file>
+        <file>icons/grey/Attach.png</file>
+        <file>icons/grey/Audio Message.png</file>
+        <file>icons/grey/Back Top.png</file>
+        <file>icons/grey/Back.png</file>
+        <file>icons/grey/Bubble 1.png</file>
+        <file>icons/grey/Bubble 3.png</file>
+        <file>icons/grey/Burn.png</file>
+        <file>icons/grey/Calc.png</file>
+        <file>icons/grey/Calendar.png</file>
+        <file>icons/grey/Cancel.png</file>
+        <file>icons/grey/Car.png</file>
+        <file>icons/grey/Card1.png</file>
+        <file>icons/grey/Card2.png</file>
+        <file>icons/grey/Card3.png</file>
+        <file>icons/grey/Card4.png</file>
+        <file>icons/grey/Cart.png</file>
+        <file>icons/grey/Cart2.png</file>
+        <file>icons/grey/Cd.png</file>
+        <file>icons/grey/Clipboard Copy.png</file>
+        <file>icons/grey/Clipboard Cut.png</file>
+        <file>icons/grey/Clipboard Paste.png</file>
+        <file>icons/grey/Clock.png</file>
+        <file>icons/grey/Computer.png</file>
+        <file>icons/grey/Contact.png</file>
+        <file>icons/grey/Copyright.png</file>
+        <file>icons/grey/Cube.png</file>
+        <file>icons/grey/Currency Dollar.png</file>
+        <file>icons/grey/Currency Euro.png</file>
+        <file>icons/grey/Currency Pound.png</file>
+        <file>icons/grey/Database.png</file>
+        <file>icons/grey/Direction Diag1.png</file>
+        <file>icons/grey/Direction Diag2.png</file>
+        <file>icons/grey/Direction Horz.png</file>
+        <file>icons/grey/Direction Vert.png</file>
+        <file>icons/grey/Directions.png</file>
+        <file>icons/grey/Discuss.png</file>
+        <file>icons/grey/Document New.png</file>
+        <file>icons/grey/Document.png</file>
+        <file>icons/grey/Document2.png</file>
+        <file>icons/grey/Dots Down.png</file>
+        <file>icons/grey/Dots Up.png</file>
+        <file>icons/grey/Dots.png</file>
+        <file>icons/grey/Download.png</file>
+        <file>icons/grey/Email.png</file>
+        <file>icons/grey/Exclamation.png</file>
+        <file>icons/grey/Fbook.png</file>
+        <file>icons/grey/Flag.png</file>
+        <file>icons/grey/Folder.png</file>
+        <file>icons/grey/Folder2.png</file>
+        <file>icons/grey/Folder3.png</file>
+        <file>icons/grey/Footprint.png</file>
+        <file>icons/grey/Forbidden.png</file>
+        <file>icons/grey/Full Screen.png</file>
+        <file>icons/grey/Full Size.png</file>
+        <file>icons/grey/Game.png</file>
+        <file>icons/grey/Gear.png</file>
+        <file>icons/grey/Globe.png</file>
+        <file>icons/grey/Go In.png</file>
+        <file>icons/grey/Go Out.png</file>
+        <file>icons/grey/Graph.png</file>
+        <file>icons/grey/Hand.png</file>
+        <file>icons/grey/Hdd Network.png</file>
+        <file>icons/grey/Hdd.png</file>
+        <file>icons/grey/Health.png</file>
+        <file>icons/grey/Heart.png</file>
+        <file>icons/grey/Home.png</file>
+        <file>icons/grey/Home2.png</file>
+        <file>icons/grey/Info.png</file>
+        <file>icons/grey/Info2.png</file>
+        <file>icons/grey/Ipod.png</file>
+        <file>icons/grey/Key.png</file>
+        <file>icons/grey/Light.png</file>
+        <file>icons/grey/Link.png</file>
+        <file>icons/grey/Lock Open.png</file>
+        <file>icons/grey/Lock.png</file>
+        <file>icons/grey/Loop.png</file>
+        <file>icons/grey/Luggage.png</file>
+        <file>icons/grey/Mail.png</file>
+        <file>icons/grey/Man.png</file>
+        <file>icons/grey/Microphone.png</file>
+        <file>icons/grey/Minus.png</file>
+        <file>icons/grey/Mobile.png</file>
+        <file>icons/grey/Mouse.png</file>
+        <file>icons/grey/Movie.png</file>
+        <file>icons/grey/Music.png</file>
+        <file>icons/grey/Music2.png</file>
+        <file>icons/grey/Nuke.png</file>
+        <file>icons/grey/Ok.png</file>
+        <file>icons/grey/Paragraph.png</file>
+        <file>icons/grey/Percent.png</file>
+        <file>icons/grey/Phone.png</file>
+        <file>icons/grey/Photo.png</file>
+        <file>icons/grey/Picture.png</file>
+        <file>icons/grey/Player Eject.png</file>
+        <file>icons/grey/Player FastFwd.png</file>
+        <file>icons/grey/Player FastRev.png</file>
+        <file>icons/grey/Player Next.png</file>
+        <file>icons/grey/Player Pause.png</file>
+        <file>icons/grey/Player Play.png</file>
+        <file>icons/grey/Player Previous.png</file>
+        <file>icons/grey/Player Record.png</file>
+        <file>icons/grey/Player Stop.png</file>
+        <file>icons/grey/Plus.png</file>
+        <file>icons/grey/Podcast.png</file>
+        <file>icons/grey/Pointer.png</file>
+        <file>icons/grey/Poll.png</file>
+        <file>icons/grey/Printer.png</file>
+        <file>icons/grey/Puzzle.png</file>
+        <file>icons/grey/Question.png</file>
+        <file>icons/grey/Reduced Size.png</file>
+        <file>icons/grey/Refresh.png</file>
+        <file>icons/grey/Rss 1.png</file>
+        <file>icons/grey/Rss 2.png</file>
+        <file>icons/grey/Save.png</file>
+        <file>icons/grey/Screen.png</file>
+        <file>icons/grey/Search.png</file>
+        <file>icons/grey/Security.png</file>
+        <file>icons/grey/Sitemap.png</file>
+        <file>icons/grey/Size Diag1.png</file>
+        <file>icons/grey/Size Diag2.png</file>
+        <file>icons/grey/Size Horz.png</file>
+        <file>icons/grey/Size Vert.png</file>
+        <file>icons/grey/Sleep.png</file>
+        <file>icons/grey/Smiley1.png</file>
+        <file>icons/grey/Smiley2.png</file>
+        <file>icons/grey/Smiley3.png</file>
+        <file>icons/grey/Sound Minus.png</file>
+        <file>icons/grey/Sound Off.png</file>
+        <file>icons/grey/Sound On.png</file>
+        <file>icons/grey/Sound Plus.png</file>
+        <file>icons/grey/Standby.png</file>
+        <file>icons/grey/Star.png</file>
+        <file>icons/grey/Start.png</file>
+        <file>icons/grey/Stats 3.png</file>
+        <file>icons/grey/Stats.png</file>
+        <file>icons/grey/Stats2.png</file>
+        <file>icons/grey/Table.png</file>
+        <file>icons/grey/Tag.png</file>
+        <file>icons/grey/Tape.png</file>
+        <file>icons/grey/Target.png</file>
+        <file>icons/grey/Text Large.png</file>
+        <file>icons/grey/Text Meduim.png</file>
+        <file>icons/grey/Text Minus.png</file>
+        <file>icons/grey/Text Plus.png</file>
+        <file>icons/grey/Text Small.png</file>
+        <file>icons/grey/Thumb Down.png</file>
+        <file>icons/grey/Thumb Up.png</file>
+        <file>icons/grey/Tool.png</file>
+        <file>icons/grey/Tool2.png</file>
+        <file>icons/grey/Trackback.png</file>
+        <file>icons/grey/Trash.png</file>
+        <file>icons/grey/Travel.png</file>
+        <file>icons/grey/Tree.png</file>
+        <file>icons/grey/Tv.png</file>
+        <file>icons/grey/User.png</file>
+        <file>icons/grey/Video.png</file>
+        <file>icons/grey/Wait.png</file>
+        <file>icons/grey/Warning.png</file>
+        <file>icons/grey/Weather Cloud.png</file>
+        <file>icons/grey/Weather Could Sun.png</file>
+        <file>icons/grey/Weather Rain.png</file>
+        <file>icons/grey/Weather Snow.png</file>
+        <file>icons/grey/Weather Sun.png</file>
+        <file>icons/grey/Wizard.png</file>
+        <file>icons/grey/Woman.png</file>
+        <file>icons/grey/Wordpress.png</file>
+        <file>icons/grey/Write.png</file>
+        <file>icons/grey/Write2.png</file>
+        <file>icons/grey/Write3.png</file>
+        <file>icons/grey/Zoom In.png</file>
+        <file>icons/grey/Zoom Out.png</file>
+        <file>icons/orange/0.png</file>
+        <file>icons/orange/1.png</file>
+        <file>icons/orange/2.png</file>
+        <file>icons/orange/3.png</file>
+        <file>icons/orange/4.png</file>
+        <file>icons/orange/5.png</file>
+        <file>icons/orange/6.png</file>
+        <file>icons/orange/7.png</file>
+        <file>icons/orange/8.png</file>
+        <file>icons/orange/9.png</file>
+        <file>icons/orange/Alarme.png</file>
+        <file>icons/orange/Ampersand.png</file>
+        <file>icons/orange/Application.png</file>
+        <file>icons/orange/Applications.png</file>
+        <file>icons/orange/Arrow1 Down.png</file>
+        <file>icons/orange/Arrow1 DownLeft.png</file>
+        <file>icons/orange/Arrow1 DownRight.png</file>
+        <file>icons/orange/Arrow1 Left.png</file>
+        <file>icons/orange/Arrow1 Right.png</file>
+        <file>icons/orange/Arrow1 Up.png</file>
+        <file>icons/orange/Arrow1 UpLeft.png</file>
+        <file>icons/orange/Arrow1 UpRight.png</file>
+        <file>icons/orange/Arrow2 Down.png</file>
+        <file>icons/orange/Arrow2 DownLeft.png</file>
+        <file>icons/orange/Arrow2 DownRight.png</file>
+        <file>icons/orange/Arrow2 Left.png</file>
+        <file>icons/orange/Arrow2 Right.png</file>
+        <file>icons/orange/Arrow2 Up.png</file>
+        <file>icons/orange/Arrow2 UpLeft.png</file>
+        <file>icons/orange/Arrow2 UpRight.png</file>
+        <file>icons/orange/Arrow3 Down.png</file>
+        <file>icons/orange/Arrow3 Left.png</file>
+        <file>icons/orange/Arrow3 Right.png</file>
+        <file>icons/orange/Arrow3 Up.png</file>
+        <file>icons/orange/Attach.png</file>
+        <file>icons/orange/Audio Message.png</file>
+        <file>icons/orange/Back Top.png</file>
+        <file>icons/orange/Back.png</file>
+        <file>icons/orange/Bubble 1.png</file>
+        <file>icons/orange/Bubble 3.png</file>
+        <file>icons/orange/Burn.png</file>
+        <file>icons/orange/Calc.png</file>
+        <file>icons/orange/Calendar.png</file>
+        <file>icons/orange/Cancel.png</file>
+        <file>icons/orange/Car.png</file>
+        <file>icons/orange/Card1.png</file>
+        <file>icons/orange/Card2.png</file>
+        <file>icons/orange/Card3.png</file>
+        <file>icons/orange/Card4.png</file>
+        <file>icons/orange/Cart.png</file>
+        <file>icons/orange/Cart2.png</file>
+        <file>icons/orange/Cd.png</file>
+        <file>icons/orange/Clipboard Copy.png</file>
+        <file>icons/orange/Clipboard Cut.png</file>
+        <file>icons/orange/Clipboard Paste.png</file>
+        <file>icons/orange/Clock.png</file>
+        <file>icons/orange/Computer.png</file>
+        <file>icons/orange/Contact.png</file>
+        <file>icons/orange/Copyright.png</file>
+        <file>icons/orange/Cube.png</file>
+        <file>icons/orange/Currency Dollar.png</file>
+        <file>icons/orange/Currency Euro.png</file>
+        <file>icons/orange/Currency Pound.png</file>
+        <file>icons/orange/Database.png</file>
+        <file>icons/orange/Direction Diag1.png</file>
+        <file>icons/orange/Direction Diag2.png</file>
+        <file>icons/orange/Direction Horz.png</file>
+        <file>icons/orange/Direction Vert.png</file>
+        <file>icons/orange/Directions.png</file>
+        <file>icons/orange/Discuss.png</file>
+        <file>icons/orange/Document New.png</file>
+        <file>icons/orange/Document.png</file>
+        <file>icons/orange/Document2.png</file>
+        <file>icons/orange/Dots Down.png</file>
+        <file>icons/orange/Dots Up.png</file>
+        <file>icons/orange/Dots.png</file>
+        <file>icons/orange/Download.png</file>
+        <file>icons/orange/Email.png</file>
+        <file>icons/orange/Exclamation.png</file>
+        <file>icons/orange/Fbook.png</file>
+        <file>icons/orange/Flag.png</file>
+        <file>icons/orange/Folder.png</file>
+        <file>icons/orange/Folder2.png</file>
+        <file>icons/orange/Folder3.png</file>
+        <file>icons/orange/Footprint.png</file>
+        <file>icons/orange/Forbidden.png</file>
+        <file>icons/orange/Full Screen.png</file>
+        <file>icons/orange/Full Size.png</file>
+        <file>icons/orange/Game.png</file>
+        <file>icons/orange/Gear.png</file>
+        <file>icons/orange/Globe.png</file>
+        <file>icons/orange/Go In.png</file>
+        <file>icons/orange/Go Out.png</file>
+        <file>icons/orange/Graph.png</file>
+        <file>icons/orange/Hand.png</file>
+        <file>icons/orange/Hdd Network.png</file>
+        <file>icons/orange/Hdd.png</file>
+        <file>icons/orange/Health.png</file>
+        <file>icons/orange/Heart.png</file>
+        <file>icons/orange/Home.png</file>
+        <file>icons/orange/Home2.png</file>
+        <file>icons/orange/Info.png</file>
+        <file>icons/orange/Info2.png</file>
+        <file>icons/orange/Ipod.png</file>
+        <file>icons/orange/Key.png</file>
+        <file>icons/orange/Light.png</file>
+        <file>icons/orange/Link.png</file>
+        <file>icons/orange/Lock Open.png</file>
+        <file>icons/orange/Lock.png</file>
+        <file>icons/orange/Loop.png</file>
+        <file>icons/orange/Luggage.png</file>
+        <file>icons/orange/Mail.png</file>
+        <file>icons/orange/Man.png</file>
+        <file>icons/orange/Microphone.png</file>
+        <file>icons/orange/Minus.png</file>
+        <file>icons/orange/Mobile.png</file>
+        <file>icons/orange/Mouse.png</file>
+        <file>icons/orange/Movie.png</file>
+        <file>icons/orange/Music.png</file>
+        <file>icons/orange/Music2.png</file>
+        <file>icons/orange/Nuke.png</file>
+        <file>icons/orange/Ok.png</file>
+        <file>icons/orange/Paragraph.png</file>
+        <file>icons/orange/Percent.png</file>
+        <file>icons/orange/Phone.png</file>
+        <file>icons/orange/Photo.png</file>
+        <file>icons/orange/Picture.png</file>
+        <file>icons/orange/Player Eject.png</file>
+        <file>icons/orange/Player FastFwd.png</file>
+        <file>icons/orange/Player FastRev.png</file>
+        <file>icons/orange/Player Next.png</file>
+        <file>icons/orange/Player Pause.png</file>
+        <file>icons/orange/Player Play.png</file>
+        <file>icons/orange/Player Previous.png</file>
+        <file>icons/orange/Player Record.png</file>
+        <file>icons/orange/Player Stop.png</file>
+        <file>icons/orange/Plus.png</file>
+        <file>icons/orange/Podcast.png</file>
+        <file>icons/orange/Pointer.png</file>
+        <file>icons/orange/Poll.png</file>
+        <file>icons/orange/Printer.png</file>
+        <file>icons/orange/Puzzle.png</file>
+        <file>icons/orange/Question.png</file>
+        <file>icons/orange/Reduced Size.png</file>
+        <file>icons/orange/Refresh.png</file>
+        <file>icons/orange/Rss 1.png</file>
+        <file>icons/orange/Rss 2.png</file>
+        <file>icons/orange/Save.png</file>
+        <file>icons/orange/Screen.png</file>
+        <file>icons/orange/Search.png</file>
+        <file>icons/orange/Security.png</file>
+        <file>icons/orange/Sitemap.png</file>
+        <file>icons/orange/Size Diag1.png</file>
+        <file>icons/orange/Size Diag2.png</file>
+        <file>icons/orange/Size Horz.png</file>
+        <file>icons/orange/Size Vert.png</file>
+        <file>icons/orange/Sleep.png</file>
+        <file>icons/orange/Smiley1.png</file>
+        <file>icons/orange/Smiley2.png</file>
+        <file>icons/orange/Smiley3.png</file>
+        <file>icons/orange/Sound Minus.png</file>
+        <file>icons/orange/Sound Off.png</file>
+        <file>icons/orange/Sound On.png</file>
+        <file>icons/orange/Sound Plus.png</file>
+        <file>icons/orange/Standby.png</file>
+        <file>icons/orange/Star.png</file>
+        <file>icons/orange/Start.png</file>
+        <file>icons/orange/Stats 3.png</file>
+        <file>icons/orange/Stats.png</file>
+        <file>icons/orange/Stats2.png</file>
+        <file>icons/orange/Table.png</file>
+        <file>icons/orange/Tag.png</file>
+        <file>icons/orange/Tape.png</file>
+        <file>icons/orange/Target.png</file>
+        <file>icons/orange/Text Large.png</file>
+        <file>icons/orange/Text Meduim.png</file>
+        <file>icons/orange/Text Minus.png</file>
+        <file>icons/orange/Text Plus.png</file>
+        <file>icons/orange/Text Small.png</file>
+        <file>icons/orange/Thumb Down.png</file>
+        <file>icons/orange/Thumb Up.png</file>
+        <file>icons/orange/Tool.png</file>
+        <file>icons/orange/Tool2.png</file>
+        <file>icons/orange/Trackback.png</file>
+        <file>icons/orange/Trash.png</file>
+        <file>icons/orange/Travel.png</file>
+        <file>icons/orange/Tree.png</file>
+        <file>icons/orange/Tv.png</file>
+        <file>icons/orange/User.png</file>
+        <file>icons/orange/Video.png</file>
+        <file>icons/orange/Wait.png</file>
+        <file>icons/orange/Warning.png</file>
+        <file>icons/orange/Weather Cloud.png</file>
+        <file>icons/orange/Weather Could Sun.png</file>
+        <file>icons/orange/Weather Rain.png</file>
+        <file>icons/orange/Weather Snow.png</file>
+        <file>icons/orange/Weather Sun.png</file>
+        <file>icons/orange/Wizard.png</file>
+        <file>icons/orange/Woman.png</file>
+        <file>icons/orange/Wordpress.png</file>
+        <file>icons/orange/Write.png</file>
+        <file>icons/orange/Write2.png</file>
+        <file>icons/orange/Write3.png</file>
+        <file>icons/orange/Zoom In.png</file>
+        <file>icons/orange/Zoom Out.png</file>
+        <file>icons/pink/0.png</file>
+        <file>icons/pink/1.png</file>
+        <file>icons/pink/2.png</file>
+        <file>icons/pink/3.png</file>
+        <file>icons/pink/4.png</file>
+        <file>icons/pink/5.png</file>
+        <file>icons/pink/6.png</file>
+        <file>icons/pink/7.png</file>
+        <file>icons/pink/8.png</file>
+        <file>icons/pink/9.png</file>
+        <file>icons/pink/Alarme.png</file>
+        <file>icons/pink/Ampersand.png</file>
+        <file>icons/pink/Application.png</file>
+        <file>icons/pink/Applications.png</file>
+        <file>icons/pink/Arrow1 Down.png</file>
+        <file>icons/pink/Arrow1 DownLeft.png</file>
+        <file>icons/pink/Arrow1 DownRight.png</file>
+        <file>icons/pink/Arrow1 Left.png</file>
+        <file>icons/pink/Arrow1 Right.png</file>
+        <file>icons/pink/Arrow1 Up.png</file>
+        <file>icons/pink/Arrow1 UpLeft.png</file>
+        <file>icons/pink/Arrow1 UpRight.png</file>
+        <file>icons/pink/Arrow2 Down.png</file>
+        <file>icons/pink/Arrow2 DownLeft.png</file>
+        <file>icons/pink/Arrow2 DownRight.png</file>
+        <file>icons/pink/Arrow2 Left.png</file>
+        <file>icons/pink/Arrow2 Right.png</file>
+        <file>icons/pink/Arrow2 Up.png</file>
+        <file>icons/pink/Arrow2 UpLeft.png</file>
+        <file>icons/pink/Arrow2 UpRight.png</file>
+        <file>icons/pink/Arrow3 Down.png</file>
+        <file>icons/pink/Arrow3 Left.png</file>
+        <file>icons/pink/Arrow3 Right.png</file>
+        <file>icons/pink/Arrow3 Up.png</file>
+        <file>icons/pink/Attach.png</file>
+        <file>icons/pink/Audio Message.png</file>
+        <file>icons/pink/Back Top.png</file>
+        <file>icons/pink/Back.png</file>
+        <file>icons/pink/Bubble 1.png</file>
+        <file>icons/pink/Bubble 3.png</file>
+        <file>icons/pink/Burn.png</file>
+        <file>icons/pink/Calc.png</file>
+        <file>icons/pink/Calendar.png</file>
+        <file>icons/pink/Cancel.png</file>
+        <file>icons/pink/Car.png</file>
+        <file>icons/pink/Card1.png</file>
+        <file>icons/pink/Card2.png</file>
+        <file>icons/pink/Card3.png</file>
+        <file>icons/pink/Card4.png</file>
+        <file>icons/pink/Cart.png</file>
+        <file>icons/pink/Cart2.png</file>
+        <file>icons/pink/Cd.png</file>
+        <file>icons/pink/Clipboard Copy.png</file>
+        <file>icons/pink/Clipboard Cut.png</file>
+        <file>icons/pink/Clipboard Paste.png</file>
+        <file>icons/pink/Clock.png</file>
+        <file>icons/pink/Computer.png</file>
+        <file>icons/pink/Contact.png</file>
+        <file>icons/pink/Copyright.png</file>
+        <file>icons/pink/Cube.png</file>
+        <file>icons/pink/Currency Dollar.png</file>
+        <file>icons/pink/Currency Euro.png</file>
+        <file>icons/pink/Currency Pound.png</file>
+        <file>icons/pink/Database.png</file>
+        <file>icons/pink/Direction Diag1.png</file>
+        <file>icons/pink/Direction Diag2.png</file>
+        <file>icons/pink/Direction Horz.png</file>
+        <file>icons/pink/Direction Vert.png</file>
+        <file>icons/pink/Directions.png</file>
+        <file>icons/pink/Discuss.png</file>
+        <file>icons/pink/Document New.png</file>
+        <file>icons/pink/Document.png</file>
+        <file>icons/pink/Document2.png</file>
+        <file>icons/pink/Dots Down.png</file>
+        <file>icons/pink/Dots Up.png</file>
+        <file>icons/pink/Dots.png</file>
+        <file>icons/pink/Download.png</file>
+        <file>icons/pink/Email.png</file>
+        <file>icons/pink/Exclamation.png</file>
+        <file>icons/pink/Fbook.png</file>
+        <file>icons/pink/Flag.png</file>
+        <file>icons/pink/Folder.png</file>
+        <file>icons/pink/Folder2.png</file>
+        <file>icons/pink/Folder3.png</file>
+        <file>icons/pink/Footprint.png</file>
+        <file>icons/pink/Forbidden.png</file>
+        <file>icons/pink/Full Screen.png</file>
+        <file>icons/pink/Full Size.png</file>
+        <file>icons/pink/Game.png</file>
+        <file>icons/pink/Gear.png</file>
+        <file>icons/pink/Globe.png</file>
+        <file>icons/pink/Go In.png</file>
+        <file>icons/pink/Go Out.png</file>
+        <file>icons/pink/Graph.png</file>
+        <file>icons/pink/Hand.png</file>
+        <file>icons/pink/Hdd Network.png</file>
+        <file>icons/pink/Hdd.png</file>
+        <file>icons/pink/Health.png</file>
+        <file>icons/pink/Heart.png</file>
+        <file>icons/pink/Home.png</file>
+        <file>icons/pink/Home2.png</file>
+        <file>icons/pink/Info.png</file>
+        <file>icons/pink/Info2.png</file>
+        <file>icons/pink/Ipod.png</file>
+        <file>icons/pink/Key.png</file>
+        <file>icons/pink/Light.png</file>
+        <file>icons/pink/Link.png</file>
+        <file>icons/pink/Lock Open.png</file>
+        <file>icons/pink/Lock.png</file>
+        <file>icons/pink/Loop.png</file>
+        <file>icons/pink/Luggage.png</file>
+        <file>icons/pink/Mail.png</file>
+        <file>icons/pink/Man.png</file>
+        <file>icons/pink/Microphone.png</file>
+        <file>icons/pink/Minus.png</file>
+        <file>icons/pink/Mobile.png</file>
+        <file>icons/pink/Mouse.png</file>
+        <file>icons/pink/Movie.png</file>
+        <file>icons/pink/Music.png</file>
+        <file>icons/pink/Music2.png</file>
+        <file>icons/pink/Nuke.png</file>
+        <file>icons/pink/Ok.png</file>
+        <file>icons/pink/Paragraph.png</file>
+        <file>icons/pink/Percent.png</file>
+        <file>icons/pink/Phone.png</file>
+        <file>icons/pink/Photo.png</file>
+        <file>icons/pink/Picture.png</file>
+        <file>icons/pink/Player Eject.png</file>
+        <file>icons/pink/Player FastFwd.png</file>
+        <file>icons/pink/Player FastRev.png</file>
+        <file>icons/pink/Player Next.png</file>
+        <file>icons/pink/Player Pause.png</file>
+        <file>icons/pink/Player Play.png</file>
+        <file>icons/pink/Player Previous.png</file>
+        <file>icons/pink/Player Record.png</file>
+        <file>icons/pink/Player Stop.png</file>
+        <file>icons/pink/Plus.png</file>
+        <file>icons/pink/Podcast.png</file>
+        <file>icons/pink/Pointer.png</file>
+        <file>icons/pink/Poll.png</file>
+        <file>icons/pink/Printer.png</file>
+        <file>icons/pink/Puzzle.png</file>
+        <file>icons/pink/Question.png</file>
+        <file>icons/pink/Reduced Size.png</file>
+        <file>icons/pink/Refresh.png</file>
+        <file>icons/pink/Rss 1.png</file>
+        <file>icons/pink/Rss 2.png</file>
+        <file>icons/pink/Save.png</file>
+        <file>icons/pink/Screen.png</file>
+        <file>icons/pink/Search.png</file>
+        <file>icons/pink/Security.png</file>
+        <file>icons/pink/Sitemap.png</file>
+        <file>icons/pink/Size Diag1.png</file>
+        <file>icons/pink/Size Diag2.png</file>
+        <file>icons/pink/Size Horz.png</file>
+        <file>icons/pink/Size Vert.png</file>
+        <file>icons/pink/Sleep.png</file>
+        <file>icons/pink/Smiley1.png</file>
+        <file>icons/pink/Smiley2.png</file>
+        <file>icons/pink/Smiley3.png</file>
+        <file>icons/pink/Sound Minus.png</file>
+        <file>icons/pink/Sound Off.png</file>
+        <file>icons/pink/Sound On.png</file>
+        <file>icons/pink/Sound Plus.png</file>
+        <file>icons/pink/Standby.png</file>
+        <file>icons/pink/Star.png</file>
+        <file>icons/pink/Start.png</file>
+        <file>icons/pink/Stats 3.png</file>
+        <file>icons/pink/Stats.png</file>
+        <file>icons/pink/Stats2.png</file>
+        <file>icons/pink/Table.png</file>
+        <file>icons/pink/Tag.png</file>
+        <file>icons/pink/Tape.png</file>
+        <file>icons/pink/Target.png</file>
+        <file>icons/pink/Text Large.png</file>
+        <file>icons/pink/Text Meduim.png</file>
+        <file>icons/pink/Text Minus.png</file>
+        <file>icons/pink/Text Plus.png</file>
+        <file>icons/pink/Text Small.png</file>
+        <file>icons/pink/Thumb Down.png</file>
+        <file>icons/pink/Thumb Up.png</file>
+        <file>icons/pink/Tool.png</file>
+        <file>icons/pink/Tool2.png</file>
+        <file>icons/pink/Trackback.png</file>
+        <file>icons/pink/Trash.png</file>
+        <file>icons/pink/Travel.png</file>
+        <file>icons/pink/Tree.png</file>
+        <file>icons/pink/Tv.png</file>
+        <file>icons/pink/User.png</file>
+        <file>icons/pink/Video.png</file>
+        <file>icons/pink/Wait.png</file>
+        <file>icons/pink/Warning.png</file>
+        <file>icons/pink/Weather Cloud.png</file>
+        <file>icons/pink/Weather Could Sun.png</file>
+        <file>icons/pink/Weather Rain.png</file>
+        <file>icons/pink/Weather Snow.png</file>
+        <file>icons/pink/Weather Sun.png</file>
+        <file>icons/pink/Wizard.png</file>
+        <file>icons/pink/Woman.png</file>
+        <file>icons/pink/Wordpress.png</file>
+        <file>icons/pink/Write.png</file>
+        <file>icons/pink/Write2.png</file>
+        <file>icons/pink/Write3.png</file>
+        <file>icons/pink/Zoom In.png</file>
+        <file>icons/pink/Zoom Out.png</file>
+        <file>icons/red/0.png</file>
+        <file>icons/red/1.png</file>
+        <file>icons/red/2.png</file>
+        <file>icons/red/3.png</file>
+        <file>icons/red/4.png</file>
+        <file>icons/red/5.png</file>
+        <file>icons/red/6.png</file>
+        <file>icons/red/7.png</file>
+        <file>icons/red/8.png</file>
+        <file>icons/red/9.png</file>
+        <file>icons/red/Alarme.png</file>
+        <file>icons/red/Ampersand.png</file>
+        <file>icons/red/Application.png</file>
+        <file>icons/red/Applications.png</file>
+        <file>icons/red/Arrow1 Down.png</file>
+        <file>icons/red/Arrow1 DownLeft.png</file>
+        <file>icons/red/Arrow1 DownRight.png</file>
+        <file>icons/red/Arrow1 Left.png</file>
+        <file>icons/red/Arrow1 Right.png</file>
+        <file>icons/red/Arrow1 Up.png</file>
+        <file>icons/red/Arrow1 UpLeft.png</file>
+        <file>icons/red/Arrow1 UpRight.png</file>
+        <file>icons/red/Arrow2 Down.png</file>
+        <file>icons/red/Arrow2 DownLeft.png</file>
+        <file>icons/red/Arrow2 DownRight.png</file>
+        <file>icons/red/Arrow2 Left.png</file>
+        <file>icons/red/Arrow2 Right.png</file>
+        <file>icons/red/Arrow2 Up.png</file>
+        <file>icons/red/Arrow2 UpLeft.png</file>
+        <file>icons/red/Arrow2 UpRight.png</file>
+        <file>icons/red/Arrow3 Down.png</file>
+        <file>icons/red/Arrow3 Left.png</file>
+        <file>icons/red/Arrow3 Right.png</file>
+        <file>icons/red/Arrow3 Up.png</file>
+        <file>icons/red/Attach.png</file>
+        <file>icons/red/Audio Message.png</file>
+        <file>icons/red/Back Top.png</file>
+        <file>icons/red/Back.png</file>
+        <file>icons/red/Bubble 1.png</file>
+        <file>icons/red/Bubble 3.png</file>
+        <file>icons/red/Burn.png</file>
+        <file>icons/red/Calc.png</file>
+        <file>icons/red/Calendar.png</file>
+        <file>icons/red/Cancel.png</file>
+        <file>icons/red/Car.png</file>
+        <file>icons/red/Card1.png</file>
+        <file>icons/red/Card2.png</file>
+        <file>icons/red/Card3.png</file>
+        <file>icons/red/Card4.png</file>
+        <file>icons/red/Cart.png</file>
+        <file>icons/red/Cart2.png</file>
+        <file>icons/red/Cd.png</file>
+        <file>icons/red/Clipboard Copy.png</file>
+        <file>icons/red/Clipboard Cut.png</file>
+        <file>icons/red/Clipboard Paste.png</file>
+        <file>icons/red/Clock.png</file>
+        <file>icons/red/Computer.png</file>
+        <file>icons/red/Contact.png</file>
+        <file>icons/red/Copyright.png</file>
+        <file>icons/red/Cube.png</file>
+        <file>icons/red/Currency Dollar.png</file>
+        <file>icons/red/Currency Euro.png</file>
+        <file>icons/red/Currency Pound.png</file>
+        <file>icons/red/Database.png</file>
+        <file>icons/red/Direction Diag1.png</file>
+        <file>icons/red/Direction Diag2.png</file>
+        <file>icons/red/Direction Horz.png</file>
+        <file>icons/red/Direction Vert.png</file>
+        <file>icons/red/Directions.png</file>
+        <file>icons/red/Discuss.png</file>
+        <file>icons/red/Document New.png</file>
+        <file>icons/red/Document.png</file>
+        <file>icons/red/Document2.png</file>
+        <file>icons/red/Dots Down.png</file>
+        <file>icons/red/Dots Up.png</file>
+        <file>icons/red/Dots.png</file>
+        <file>icons/red/Download.png</file>
+        <file>icons/red/Email.png</file>
+        <file>icons/red/Exclamation.png</file>
+        <file>icons/red/Fbook.png</file>
+        <file>icons/red/Flag.png</file>
+        <file>icons/red/Folder.png</file>
+        <file>icons/red/Folder2.png</file>
+        <file>icons/red/Folder3.png</file>
+        <file>icons/red/Footprint.png</file>
+        <file>icons/red/Forbidden.png</file>
+        <file>icons/red/Full Screen.png</file>
+        <file>icons/red/Full Size.png</file>
+        <file>icons/red/Game.png</file>
+        <file>icons/red/Gear.png</file>
+        <file>icons/red/Globe.png</file>
+        <file>icons/red/Go In.png</file>
+        <file>icons/red/Go Out.png</file>
+        <file>icons/red/Graph.png</file>
+        <file>icons/red/Hand.png</file>
+        <file>icons/red/Hdd Network.png</file>
+        <file>icons/red/Hdd.png</file>
+        <file>icons/red/Health.png</file>
+        <file>icons/red/Heart.png</file>
+        <file>icons/red/Home.png</file>
+        <file>icons/red/Home2.png</file>
+        <file>icons/red/Info.png</file>
+        <file>icons/red/Info2.png</file>
+        <file>icons/red/Ipod.png</file>
+        <file>icons/red/Key.png</file>
+        <file>icons/red/Light.png</file>
+        <file>icons/red/Link.png</file>
+        <file>icons/red/Lock Open.png</file>
+        <file>icons/red/Lock.png</file>
+        <file>icons/red/Loop.png</file>
+        <file>icons/red/Luggage.png</file>
+        <file>icons/red/Mail.png</file>
+        <file>icons/red/Man.png</file>
+        <file>icons/red/Microphone.png</file>
+        <file>icons/red/Minus.png</file>
+        <file>icons/red/Mobile.png</file>
+        <file>icons/red/Mouse.png</file>
+        <file>icons/red/Movie.png</file>
+        <file>icons/red/Music.png</file>
+        <file>icons/red/Music2.png</file>
+        <file>icons/red/Nuke.png</file>
+        <file>icons/red/Ok.png</file>
+        <file>icons/red/Paragraph.png</file>
+        <file>icons/red/Percent.png</file>
+        <file>icons/red/Phone.png</file>
+        <file>icons/red/Photo.png</file>
+        <file>icons/red/Picture.png</file>
+        <file>icons/red/Player Eject.png</file>
+        <file>icons/red/Player FastFwd.png</file>
+        <file>icons/red/Player FastRev.png</file>
+        <file>icons/red/Player Next.png</file>
+        <file>icons/red/Player Pause.png</file>
+        <file>icons/red/Player Play.png</file>
+        <file>icons/red/Player Previous.png</file>
+        <file>icons/red/Player Record.png</file>
+        <file>icons/red/Player Stop.png</file>
+        <file>icons/red/Plus.png</file>
+        <file>icons/red/Podcast.png</file>
+        <file>icons/red/Pointer.png</file>
+        <file>icons/red/Poll.png</file>
+        <file>icons/red/Printer.png</file>
+        <file>icons/red/Puzzle.png</file>
+        <file>icons/red/Question.png</file>
+        <file>icons/red/Reduced Size.png</file>
+        <file>icons/red/Refresh.png</file>
+        <file>icons/red/Rss 1.png</file>
+        <file>icons/red/Rss 2.png</file>
+        <file>icons/red/Save.png</file>
+        <file>icons/red/Screen.png</file>
+        <file>icons/red/Search.png</file>
+        <file>icons/red/Security.png</file>
+        <file>icons/red/Sitemap.png</file>
+        <file>icons/red/Size Diag1.png</file>
+        <file>icons/red/Size Diag2.png</file>
+        <file>icons/red/Size Horz.png</file>
+        <file>icons/red/Size Vert.png</file>
+        <file>icons/red/Sleep.png</file>
+        <file>icons/red/Smiley1.png</file>
+        <file>icons/red/Smiley2.png</file>
+        <file>icons/red/Smiley3.png</file>
+        <file>icons/red/Sound Minus.png</file>
+        <file>icons/red/Sound Off.png</file>
+        <file>icons/red/Sound On.png</file>
+        <file>icons/red/Sound Plus.png</file>
+        <file>icons/red/Standby.png</file>
+        <file>icons/red/Star.png</file>
+        <file>icons/red/Start.png</file>
+        <file>icons/red/Stats 3.png</file>
+        <file>icons/red/Stats.png</file>
+        <file>icons/red/Stats2.png</file>
+        <file>icons/red/Table.png</file>
+        <file>icons/red/Tag.png</file>
+        <file>icons/red/Tape.png</file>
+        <file>icons/red/Target.png</file>
+        <file>icons/red/Text Large.png</file>
+        <file>icons/red/Text Meduim.png</file>
+        <file>icons/red/Text Minus.png</file>
+        <file>icons/red/Text Plus.png</file>
+        <file>icons/red/Text Small.png</file>
+        <file>icons/red/Thumb Down.png</file>
+        <file>icons/red/Thumb Up.png</file>
+        <file>icons/red/Tool.png</file>
+        <file>icons/red/Tool2.png</file>
+        <file>icons/red/Trackback.png</file>
+        <file>icons/red/Trash.png</file>
+        <file>icons/red/Travel.png</file>
+        <file>icons/red/Tree.png</file>
+        <file>icons/red/Tv.png</file>
+        <file>icons/red/User.png</file>
+        <file>icons/red/Video.png</file>
+        <file>icons/red/Wait.png</file>
+        <file>icons/red/Warning.png</file>
+        <file>icons/red/Weather Cloud.png</file>
+        <file>icons/red/Weather Could Sun.png</file>
+        <file>icons/red/Weather Rain.png</file>
+        <file>icons/red/Weather Snow.png</file>
+        <file>icons/red/Weather Sun.png</file>
+        <file>icons/red/Wizard.png</file>
+        <file>icons/red/Woman.png</file>
+        <file>icons/red/Wordpress.png</file>
+        <file>icons/red/Write.png</file>
+        <file>icons/red/Write2.png</file>
+        <file>icons/red/Write3.png</file>
+        <file>icons/red/Zoom In.png</file>
+        <file>icons/red/Zoom Out.png</file>
     </qresource>
 </RCC>

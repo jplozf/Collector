@@ -18,12 +18,12 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabLauncher">
        <attribute name="icon">
-        <iconset resource="Collector.qrc">
-         <normaloff>:/icons/Start.png</normaloff>:/icons/Start.png</iconset>
+        <iconset resource="quish.qrc">
+         <normaloff>:/icons/green/Start.png</normaloff>:/icons/green/Start.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Launcher</string>
@@ -45,8 +45,8 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="Collector.qrc">
-                <normaloff>:/icons/Plus.png</normaloff>:/icons/Plus.png</iconset>
+               <iconset resource="quish.qrc">
+                <normaloff>:/icons/green/Plus.png</normaloff>:/icons/green/Plus.png</iconset>
               </property>
              </widget>
             </item>
@@ -60,8 +60,8 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="Collector.qrc">
-                <normaloff>:/icons/Arrow1 Up.png</normaloff>:/icons/Arrow1 Up.png</iconset>
+               <iconset resource="quish.qrc">
+                <normaloff>:/icons/green/Arrow1 Up.png</normaloff>:/icons/green/Arrow1 Up.png</iconset>
               </property>
              </widget>
             </item>
@@ -71,8 +71,8 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="Collector.qrc">
-                <normaloff>:/icons/Arrow1 Down.png</normaloff>:/icons/Arrow1 Down.png</iconset>
+               <iconset resource="quish.qrc">
+                <normaloff>:/icons/green/Arrow1 Down.png</normaloff>:/icons/green/Arrow1 Down.png</iconset>
               </property>
              </widget>
             </item>
@@ -95,8 +95,8 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="Collector.qrc">
-                <normaloff>:/icons/Trash.png</normaloff>:/icons/Trash.png</iconset>
+               <iconset resource="quish.qrc">
+                <normaloff>:/icons/green/Trash.png</normaloff>:/icons/green/Trash.png</iconset>
               </property>
              </widget>
             </item>
@@ -108,8 +108,8 @@
       </widget>
       <widget class="QWidget" name="tabExplorer">
        <attribute name="icon">
-        <iconset resource="Collector.qrc">
-         <normaloff>:/icons/Folder2.png</normaloff>:/icons/Folder2.png</iconset>
+        <iconset resource="quish.qrc">
+         <normaloff>:/icons/green/Folder2.png</normaloff>:/icons/green/Folder2.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Explorer</string>
@@ -135,8 +135,8 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="Collector.qrc">
-                <normaloff>:/icons/Folder2.png</normaloff>:/icons/Folder2.png</iconset>
+               <iconset resource="quish.qrc">
+                <normaloff>:/icons/green/Folder2.png</normaloff>:/icons/green/Folder2.png</iconset>
               </property>
              </widget>
             </item>
@@ -165,8 +165,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="Collector.qrc">
-              <normaloff>:/icons/Plus.png</normaloff>:/icons/Plus.png</iconset>
+             <iconset resource="quish.qrc">
+              <normaloff>:/icons/green/Plus.png</normaloff>:/icons/green/Plus.png</iconset>
             </property>
            </widget>
           </item>
@@ -176,8 +176,8 @@
       </widget>
       <widget class="QWidget" name="tabSettings">
        <attribute name="icon">
-        <iconset resource="Collector.qrc">
-         <normaloff>:/icons/Gear.png</normaloff>:/icons/Gear.png</iconset>
+        <iconset resource="quish.qrc">
+         <normaloff>:/icons/green/Gear.png</normaloff>:/icons/green/Gear.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Settings</string>
@@ -251,8 +251,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="Collector.qrc">
-              <normaloff>:/icons/Folder2.png</normaloff>:/icons/Folder2.png</iconset>
+             <iconset resource="quish.qrc">
+              <normaloff>:/icons/green/Folder2.png</normaloff>:/icons/green/Folder2.png</iconset>
             </property>
            </widget>
           </item>
@@ -262,8 +262,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="Collector.qrc">
-              <normaloff>:/icons/Save.png</normaloff>:/icons/Save.png</iconset>
+             <iconset resource="quish.qrc">
+              <normaloff>:/icons/green/Save.png</normaloff>:/icons/green/Save.png</iconset>
             </property>
            </widget>
           </item>
@@ -281,27 +281,40 @@
            </spacer>
           </item>
           <item>
+           <widget class="QLabel" name="lblVersion">
+            <property name="text">
+             <string>0.1-abcdef</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QPushButton" name="btnCreateShortcut">
             <property name="text">
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="Collector.qrc">
-              <normaloff>:/icons/Star.png</normaloff>:/icons/Star.png</iconset>
+             <iconset resource="quish.qrc">
+              <normaloff>:/icons/green/Star.png</normaloff>:/icons/green/Star.png</iconset>
             </property>
            </widget>
           </item>
          </layout>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="lblVersion">
-          <property name="text">
-           <string>0.1-abcdef</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
         </item>
        </layout>
       </widget>
@@ -315,14 +328,14 @@
      <x>0</x>
      <y>0</y>
      <width>342</width>
-     <height>22</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="Collector.qrc"/>
+  <include location="quish.qrc"/>
  </resources>
  <connections/>
 </ui>
