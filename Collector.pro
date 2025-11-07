@@ -23,5 +23,16 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+
+
+# Get version string from script
+APP_VERSION_STRING = $$system("\"$$absolute_path($$_PRO_FILE_PWD_/generate_version_h.sh)\"")
+
+# Define the version for the application
+VERSION = $$APP_VERSION_STRING
+
+# Add project directory to INCLUDEPATH (still good practice)
+INCLUDEPATH += $$_PRO_FILE_PWD_
+
 RESOURCES += \
    Collector.qrc

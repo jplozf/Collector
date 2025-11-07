@@ -1,12 +1,15 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include <QFileInfo>
+#include <QCoreApplication>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->lblVersion->setText(QCoreApplication::applicationVersion());
 
     fileSystemModel = new QFileSystemModel(this);
     fileSystemModel->setRootPath(QDir::homePath());

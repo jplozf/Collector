@@ -1,0 +1,9 @@
+#ifndef VERSION_H
+#define VERSION_H
+
+#define APP_VERSION_MAJOR 0
+#define APP_VERSION_MINOR 3
+#define APP_VERSION_HASH "8d2b870"
+#define APP_VERSION_STRING "0.3-8d2b870"
+
+#endif // VERSION_H
