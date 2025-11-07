@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QStandardItemModel>
 #include <QStandardItem>
+#include <QColor>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -25,10 +26,15 @@ public:
 
 private slots:
     void on_tvwBrowser_doubleClicked(const QModelIndex &index);
+    void on_btnSelectBackgroundColor_clicked();
 
 private:
     Ui::MainWindow *ui;
     QFileSystemModel *fileSystemModel;
     QStandardItemModel *launcherModel;
+    QColor m_backgroundColor;
+
+    void applyBackgroundColor();
+    void updateBackgroundColorPreview();
 };
 #endif // MAINWINDOW_H
