@@ -64,14 +64,37 @@ void MainWindow::on_btnSelectBackgroundColor_clicked()
 
 void MainWindow::applyBackgroundColor()
 {
+    QColor textColor = getContrastingTextColor(m_backgroundColor);
     // Apply the background color to all widgets in the application
     if (QApplication::instance()) {
-        qobject_cast<QApplication*>(QApplication::instance())->setStyleSheet(QString("QWidget { background-color: %1; }").arg(m_backgroundColor.name()));
+        qobject_cast<QApplication*>(QApplication::instance())->setStyleSheet(QString("QWidget { background-color: %1; color: %2; }").arg(m_backgroundColor.name()).arg(textColor.name()));
     }
 }
 
 void MainWindow::updateBackgroundColorPreview()
 {
-    // Set the background of the QLabel to the selected color
-    ui->lblBackgroundColorPreview->setStyleSheet(QString("background-color: %1;").arg(m_backgroundColor.name()));
+    QString colorName = m_backgroundColor.name();
+    QColor textColor = getContrastingTextColor(m_backgroundColor);
+
+    // Set the background of the QLabel to the selected color and the contrasting text color
+    ui->lblBackgroundColorPreview->setStyleSheet(QString("background-color: %1; color: %2;").arg(colorName).arg(textColor.name()));
+
+    // Set the text of the QLabel to the hex color value and center it
+    ui->lblBackgroundColorPreview->setText(colorName);
+    ui->lblBackgroundColorPreview->setAlignment(Qt::AlignCenter);
+}
+
+QColor MainWindow::getContrastingTextColor(const QColor &backgroundColor)
+{
+    int r = backgroundColor.red();
+    int g = backgroundColor.green();
+    int b = backgroundColor.blue();
+
+    double y = (r * 299 + g * 587 + b * 114) / 1000.0;
+
+    if (y >= 128) {
+        return Qt::black;
+    } else {
+        return Qt::white;
+    }
 }

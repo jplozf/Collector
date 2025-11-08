@@ -36,5 +36,6 @@ private:
 
     void applyBackgroundColor();
     void updateBackgroundColorPreview();
+    QColor getContrastingTextColor(const QColor &backgroundColor);
 };
 #endif // MAINWINDOW_H
