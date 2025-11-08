@@ -34,12 +34,17 @@ private:
     QFileSystemModel *fileSystemModel;
     QStandardItemModel *launcherModel;
     QColor m_backgroundColor;
+    QString m_iconSet;
 
     void applyBackgroundColor();
     void updateBackgroundColorPreview();
     QColor getContrastingTextColor(const QColor &backgroundColor);
     void writeSettings();
     void readSettings();
+    void applyIconSet();
+
+private slots:
+    void on_cmbIconSet_currentIndexChanged(const QString &arg1);
 
 protected:
     void closeEvent(QCloseEvent *event) override;

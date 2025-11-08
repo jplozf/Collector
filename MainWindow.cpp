@@ -20,12 +20,23 @@ MainWindow::MainWindow(QWidget *parent)
     launcherModel = new QStandardItemModel(this);
     ui->tvwLauncher->setModel(launcherModel);
 
+    // Populate icon set combobox
+    ui->cmbIconSet->addItem("blue");
+    ui->cmbIconSet->addItem("green");
+    ui->cmbIconSet->addItem("grey");
+    ui->cmbIconSet->addItem("orange");
+    ui->cmbIconSet->addItem("pink");
+    ui->cmbIconSet->addItem("red");
+
     // Read settings, potentially overriding the default
     readSettings();
+
+    connect(ui->cmbIconSet, QOverload<const QString &>::of(&QComboBox::currentIndexChanged), this, &MainWindow::on_cmbIconSet_currentIndexChanged);
 
     // Apply the final background color and update the UI
     applyBackgroundColor();
     updateBackgroundColorPreview();
+    applyIconSet(); // Apply icon set after reading settings and populating combobox
 
     ui->lblVersion->setText(QCoreApplication::applicationVersion());
 
@@ -126,6 +137,7 @@ void MainWindow::writeSettings()
     settings.setValue("geometry", saveGeometry());
     settings.setValue("backgroundColor", m_backgroundColor.name());
     settings.setValue("currentTab", ui->tabWidget->currentIndex());
+    settings.setValue("iconSet", m_iconSet);
 
     settings.beginWriteArray("shortcuts");
     for (int i = 0; i < launcherModel->rowCount(); ++i) {
@@ -146,6 +158,15 @@ void MainWindow::readSettings()
         m_backgroundColor.setNamedColor(settings.value("backgroundColor").toString());
     if (settings.contains("currentTab"))
         ui->tabWidget->setCurrentIndex(settings.value("currentTab").toInt());
+    if (settings.contains("iconSet")) {
+        m_iconSet = settings.value("iconSet").toString();
+        int index = ui->cmbIconSet->findText(m_iconSet);
+        if (index != -1) {
+            ui->cmbIconSet->setCurrentIndex(index);
+        }
+    } else {
+        m_iconSet = "blue"; // Default if not found
+    }
 
     int size = settings.beginReadArray("shortcuts");
     for (int i = 0; i < size; ++i) {
@@ -159,4 +180,30 @@ void MainWindow::readSettings()
         }
     }
     settings.endArray();
+}
+
+void MainWindow::applyIconSet()
+{
+    // Update tab icons
+    ui->tabWidget->setTabIcon(0, QIcon(QString(":/icons/%1/Start.png").arg(m_iconSet)));
+    ui->tabWidget->setTabIcon(1, QIcon(QString(":/icons/%1/Folder2.png").arg(m_iconSet)));
+    ui->tabWidget->setTabIcon(2, QIcon(QString(":/icons/%1/Gear.png").arg(m_iconSet)));
+
+    // Update button icons
+    ui->btnAddTopic->setIcon(QIcon(QString(":/icons/%1/Plus.png").arg(m_iconSet)));
+    ui->btnUp->setIcon(QIcon(QString(":/icons/%1/Arrow1 Up.png").arg(m_iconSet)));
+    ui->btnDown->setIcon(QIcon(QString(":/icons/%1/Arrow1 Down.png").arg(m_iconSet)));
+    ui->btnDelete->setIcon(QIcon(QString(":/icons/%1/Trash.png").arg(m_iconSet)));
+    ui->btnBrowseOpenWith->setIcon(QIcon(QString(":/icons/%1/Folder2.png").arg(m_iconSet)));
+    ui->btnAddShortcut->setIcon(QIcon(QString(":/icons/%1/Plus.png").arg(m_iconSet)));
+    ui->btnSelectBackgroundColor->setIcon(QIcon(QString(":/icons/%1/Write.png").arg(m_iconSet)));
+    ui->btnLoadTemplate->setIcon(QIcon(QString(":/icons/%1/Folder2.png").arg(m_iconSet)));
+    ui->btnSave->setIcon(QIcon(QString(":/icons/%1/Save.png").arg(m_iconSet)));
+    ui->btnCreateShortcut->setIcon(QIcon(QString(":/icons/%1/Star.png").arg(m_iconSet)));
+}
+
+void MainWindow::on_cmbIconSet_currentIndexChanged(const QString &arg1)
+{
+    m_iconSet = arg1;
+    applyIconSet();
 }
