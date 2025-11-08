@@ -7,6 +7,7 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QColor>
+#include <QCloseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -37,5 +38,10 @@ private:
     void applyBackgroundColor();
     void updateBackgroundColorPreview();
     QColor getContrastingTextColor(const QColor &backgroundColor);
+    void writeSettings();
+    void readSettings();
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 #endif // MAINWINDOW_H
