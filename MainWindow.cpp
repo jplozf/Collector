@@ -58,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Initialize background color to a default
     m_backgroundColor = Qt::white;
+    m_defaultTerminalEmulator = "xterm"; // Default terminal emulator
 
     launcherModel = new QStandardItemModel(this);
     ui->tvwLauncher->setModel(launcherModel);
@@ -75,6 +76,9 @@ MainWindow::MainWindow(QWidget *parent)
     readSettings();
 
     connect(ui->cmbIconSet, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::on_cmbIconSet_currentIndexChanged);
+    connect(ui->txtDefaultTerminal, &QLineEdit::textChanged, this, [this](const QString &text) {
+        m_defaultTerminalEmulator = text;
+    });
 
     // Apply the final background color and update the UI
     applyBackgroundColor();
@@ -217,9 +221,16 @@ void MainWindow::on_tvwLauncher_doubleClicked(const QModelIndex &index)
     QStringList arguments;
 
     if (terminal) {
-        program = "xterm";
-        arguments << "-e" << commandToExecute;
-        fullCommandForDisplay = program + " -e '" + commandToExecute + "'";
+        QStringList terminalParts = m_defaultTerminalEmulator.split(" ", Qt::SkipEmptyParts);
+        if (terminalParts.isEmpty()) {
+            qWarning() << "Default terminal emulator is empty.";
+            process->deleteLater();
+            return;
+        }
+        program = terminalParts.takeFirst();
+        arguments = terminalParts;
+        arguments << commandToExecute;
+        fullCommandForDisplay = m_defaultTerminalEmulator + " '" + commandToExecute + "'";
     } else {
         program = "/bin/sh";
         arguments << "-c" << commandToExecute;
@@ -297,6 +308,7 @@ void MainWindow::writeSettings()
     settings.setValue("backgroundColor", m_backgroundColor.name());
     settings.setValue("currentTab", ui->tabWidget->currentIndex());
     settings.setValue("iconSet", m_iconSet);
+    settings.setValue("defaultTerminalEmulator", m_defaultTerminalEmulator);
 
     settings.setValue("chkOpenWith", ui->chkOpenWith->isChecked());
     settings.setValue("chkSudo", ui->chkSudo->isChecked());
@@ -331,6 +343,14 @@ void MainWindow::readSettings()
         }
     } else {
         m_iconSet = "blue"; // Default if not found
+    }
+
+    if (settings.contains("defaultTerminalEmulator")) {
+        m_defaultTerminalEmulator = settings.value("defaultTerminalEmulator").toString();
+        ui->txtDefaultTerminal->setText(m_defaultTerminalEmulator);
+    } else {
+        m_defaultTerminalEmulator = "xterm";
+        ui->txtDefaultTerminal->setText(m_defaultTerminalEmulator);
     }
 
     if (settings.contains("chkOpenWith"))

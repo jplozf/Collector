@@ -287,6 +287,23 @@
             <item row="2" column="1">
              <widget class="QComboBox" name="cmbIconSet"/>
             </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="lblDefaultTerminal">
+              <property name="text">
+               <string>Default Terminal</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="txtDefaultTerminal">
+              <property name="placeholderText">
+               <string>e.g., xterm -e, konsole -e, gnome-terminal --</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
          </layout>

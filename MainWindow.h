@@ -63,6 +63,7 @@ private:
     QByteArray m_state;
     QTimer *m_saveGeometryTimer;
     QComboBox *cbxOpenWith;
+    QString m_defaultTerminalEmulator;
     // QPushButton *btnBrowseOpenWith;
 
     void applyBackgroundColor();
