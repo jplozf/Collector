@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabLauncher">
        <attribute name="icon">
@@ -118,29 +118,25 @@
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QCheckBox" name="chkOpenWithSystemDefault">
+           <widget class="QCheckBox" name="chkOpenWith">
             <property name="text">
-             <string>Open with system default</string>
+             <string>Open with</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QLineEdit" name="txtOpenWith"/>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btnBrowseOpenWith">
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="Collector.qrc">
-                <normaloff>:/icons/green/Folder2.png</normaloff>:/icons/green/Folder2.png</iconset>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QCheckBox" name="chkSudo">
+            <property name="text">
+             <string>Run as sudo</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="chkTerminal">
+            <property name="text">
+             <string>Run in terminal</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QTreeView" name="tvwBrowser"/>

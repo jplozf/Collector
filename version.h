@@ -2,8 +2,8 @@
 #define VERSION_H
 
 #define APP_VERSION_MAJOR 0
-#define APP_VERSION_MINOR 7
-#define APP_VERSION_HASH "318bf2c"
-#define APP_VERSION_STRING "0.7-318bf2c"
+#define APP_VERSION_MINOR 8
+#define APP_VERSION_HASH "207b2dc"
+#define APP_VERSION_STRING "0.8-207b2dc"
 
 #endif // VERSION_H
