@@ -44,6 +44,7 @@ public:
 private slots:
     void on_tvwLauncher_doubleClicked(const QModelIndex &index);
     void on_tvwBrowser_doubleClicked(const QModelIndex &index);
+    void on_tvwBrowser_clicked(const QModelIndex &index);
     void on_btnSelectBackgroundColor_clicked();
     void restoreWindowGeometry();
     void on_cmbIconSet_currentIndexChanged(int index);
@@ -64,6 +65,8 @@ private:
     QTimer *m_saveGeometryTimer;
     QComboBox *cbxOpenWith;
     QString m_defaultTerminalEmulator;
+    int m_browserSortOrder; // 0: Name Asc, 1: Name Desc, 2: Date Newest, 3: Date Oldest
+    QStringList m_documentSuffixes;
     // QPushButton *btnBrowseOpenWith;
 
     void applyBackgroundColor();
@@ -72,6 +75,8 @@ private:
     void writeSettings();
     void readSettings();
     void applyIconSet();
+    void applyBrowserSortOrder();
+    void on_cmbBrowserSortOrder_currentIndexChanged(int index);
 
 protected:
     void closeEvent(QCloseEvent *event) override;

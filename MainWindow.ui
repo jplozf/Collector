@@ -144,29 +144,11 @@
          </layout>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="lblShortcutPath">
-          <property name="text">
-           <string/>
+         <widget class="QLineEdit" name="lblShortcutPath">
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
-        </item>
-        <item row="2" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QLineEdit" name="txtShortcutName"/>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnAddShortcut">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="Collector.qrc">
-              <normaloff>:/icons/green/Plus.png</normaloff>:/icons/green/Plus.png</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </item>
        </layout>
       </widget>
@@ -303,6 +285,32 @@
                <string>e.g., xterm -e, konsole -e, gnome-terminal --</string>
               </property>
              </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="lblBrowserSortOrder">
+              <property name="text">
+               <string>Browser Sort Order</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QComboBox" name="cmbBrowserSortOrder"/>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="lblDocumentSuffixes">
+              <property name="text">
+               <string>Document Suffixes (comma-separated)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLineEdit" name="txtDocumentSuffixes"/>
             </item>
            </layout>
           </item>

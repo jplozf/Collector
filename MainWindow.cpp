@@ -19,6 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Ensure checkboxes are unchecked by default
+    ui->chkOpenWith->setChecked(false);
+    ui->chkSudo->setChecked(false);
+    ui->chkTerminal->setChecked(false);
+
     // Create cbxOpenWith programmatically
     cbxOpenWith = new QComboBox(this);
     cbxOpenWith->setEditable(true);
@@ -62,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     launcherModel = new QStandardItemModel(this);
     ui->tvwLauncher->setModel(launcherModel);
+    ui->tvwLauncher->header()->hide(); // Hide the header completely
     ui->tvwLauncher->setEditTriggers(QAbstractItemView::SelectedClicked);
 
     // Populate icon set combobox
@@ -75,9 +81,27 @@ MainWindow::MainWindow(QWidget *parent)
     // Read settings, potentially overriding the default
     readSettings();
 
+    // Initialize browser sort order
+    m_browserSortOrder = 0; // Default to Name Ascending
+    ui->cmbBrowserSortOrder->addItem("Name (Ascending)");
+    ui->cmbBrowserSortOrder->addItem("Name (Descending)");
+    ui->cmbBrowserSortOrder->addItem("Date (Newest First)");
+    ui->cmbBrowserSortOrder->addItem("Date (Oldest First)");
+    connect(ui->cmbBrowserSortOrder, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::on_cmbBrowserSortOrder_currentIndexChanged);
+
     connect(ui->cmbIconSet, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::on_cmbIconSet_currentIndexChanged);
     connect(ui->txtDefaultTerminal, &QLineEdit::textChanged, this, [this](const QString &text) {
         m_defaultTerminalEmulator = text;
+    });
+
+    // Initialize document suffixes
+    m_documentSuffixes = QStringList({"cbz", "pdf", "txt", "doc", "docx", "odt", "rtf", "jpg", "jpeg", "png", "gif", "bmp", "svg", "html", "htm", "xml", "json", "csv", "xls", "xlsx", "ods", "ppt", "pptx", "odp", "mp3", "wav", "ogg", "mp4", "avi", "mkv", "mov"});
+    ui->txtDocumentSuffixes->setText(m_documentSuffixes.join(", "));
+    connect(ui->txtDocumentSuffixes, &QLineEdit::textChanged, this, [this](const QString &text) {
+        m_documentSuffixes = text.split(",", Qt::SkipEmptyParts);
+        for (QString &s : m_documentSuffixes) {
+            s = s.trimmed().toLower();
+        }
     });
 
     // Apply the final background color and update the UI
@@ -95,6 +119,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tvwBrowser->hideColumn(1);
     ui->tvwBrowser->hideColumn(2);
     ui->tvwBrowser->hideColumn(3);
+
+    applyBrowserSortOrder(); // Call after fileSystemModel is set up
+
+    connect(ui->tvwBrowser, &QTreeView::clicked, this, &MainWindow::on_tvwBrowser_clicked);
 
     restoreWindowGeometry();
 }
@@ -191,14 +219,26 @@ void MainWindow::on_tvwLauncher_doubleClicked(const QModelIndex &index)
     if (!command.isEmpty()) {
         commandToExecute = command;
         commandToExecute.replace("%1", "\"" + filePath + "\"");
+        QFileInfo fileInfo(filePath);
+        commandToExecute.replace("%p", "\"" + fileInfo.absolutePath() + "\"");
     } else if (!filePath.isEmpty()) {
         QFileInfo fileInfo(filePath);
-        // Treat executables, scripts, and jar files as runnable
-        if (fileInfo.isExecutable() || fileInfo.suffix() == "sh" || fileInfo.suffix() == "jar") {
+        QString suffix = fileInfo.suffix().toLower();
+
+        if (m_documentSuffixes.contains(suffix)) {
+            // It's a known document type, always open with desktop services
+            if (!QDesktopServices::openUrl(QUrl::fromLocalFile(filePath))) {
+                qWarning() << "Failed to open file with default application:" << filePath;
+                QMessageBox::critical(this, tr("Launch Error"), tr("Failed to open file: %1").arg(filePath));
+            }
+            process->deleteLater();
+            return;
+        } else if (fileInfo.isExecutable() || suffix == "sh" || suffix == "jar") {
+            // It's an executable, script, or jar, so execute directly
             commandToExecute = "\"" + filePath + "\"";
             process->setWorkingDirectory(fileInfo.absolutePath());
         } else {
-            // Not an executable, use desktop services
+            // For all other files (e.g., unknown types, or non-executable data files), use desktop services
             if (!QDesktopServices::openUrl(QUrl::fromLocalFile(filePath))) {
                 qWarning() << "Failed to open file with default application:" << filePath;
                 QMessageBox::critical(this, tr("Launch Error"), tr("Failed to open file: %1").arg(filePath));
@@ -238,6 +278,48 @@ void MainWindow::on_tvwLauncher_doubleClicked(const QModelIndex &index)
 
     process->setProperty("commandLine", fullCommandForDisplay);
     process->start(program, arguments);
+}
+
+void MainWindow::on_tvwBrowser_clicked(const QModelIndex &index)
+{
+    if (!index.isValid()) {
+        ui->lblShortcutPath->clear();
+        return;
+    }
+
+    QString filePath = fileSystemModel->filePath(index);
+    QFileInfo fileInfo(filePath);
+
+    if (fileInfo.isFile()) {
+        QString commandToExecute;
+        QString customCommand = cbxOpenWith->currentText();
+
+        if (ui->chkOpenWith->isChecked() && !customCommand.isEmpty()) {
+            commandToExecute = customCommand;
+            commandToExecute.replace("%1", "\"" + filePath + "\"");
+            commandToExecute.replace("%p", "\"" + fileInfo.absolutePath() + "\"");
+        } else {
+            commandToExecute = "\"" + filePath + "\"";
+        }
+
+        if (ui->chkSudo->isChecked()) {
+            commandToExecute.prepend("sudo ");
+        }
+
+        QString fullCommandForDisplay;
+        if (ui->chkTerminal->isChecked()) {
+            QString terminalEmulator = m_defaultTerminalEmulator;
+            if (terminalEmulator.isEmpty()) {
+                terminalEmulator = "xterm"; // Fallback if default is empty
+            }
+            fullCommandForDisplay = terminalEmulator + " '" + commandToExecute + "'";
+        } else {
+            fullCommandForDisplay = commandToExecute;
+        }
+        ui->lblShortcutPath->setText(fullCommandForDisplay);
+    } else {
+        ui->lblShortcutPath->clear();
+    }
 }
 
 void MainWindow::on_btnSelectBackgroundColor_clicked()
@@ -309,6 +391,8 @@ void MainWindow::writeSettings()
     settings.setValue("currentTab", ui->tabWidget->currentIndex());
     settings.setValue("iconSet", m_iconSet);
     settings.setValue("defaultTerminalEmulator", m_defaultTerminalEmulator);
+    settings.setValue("browserSortOrder", m_browserSortOrder);
+    settings.setValue("documentSuffixes", m_documentSuffixes.join(","));
 
     settings.setValue("chkOpenWith", ui->chkOpenWith->isChecked());
     settings.setValue("chkSudo", ui->chkSudo->isChecked());
@@ -353,6 +437,26 @@ void MainWindow::readSettings()
         ui->txtDefaultTerminal->setText(m_defaultTerminalEmulator);
     }
 
+    if (settings.contains("browserSortOrder")) {
+        m_browserSortOrder = settings.value("browserSortOrder").toInt();
+        ui->cmbBrowserSortOrder->setCurrentIndex(m_browserSortOrder);
+    } else {
+        m_browserSortOrder = 0; // Default to Name Ascending
+        ui->cmbBrowserSortOrder->setCurrentIndex(m_browserSortOrder);
+    }
+    // applyBrowserSortOrder(); // Temporarily commented out for debugging
+
+    if (settings.contains("documentSuffixes")) {
+        m_documentSuffixes = settings.value("documentSuffixes").toString().split(",", Qt::SkipEmptyParts);
+        for (QString &s : m_documentSuffixes) {
+            s = s.trimmed().toLower();
+        }
+        ui->txtDocumentSuffixes->setText(m_documentSuffixes.join(", "));
+    } else {
+        m_documentSuffixes = QStringList({"cbz", "pdf", "txt", "doc", "docx", "odt", "rtf", "jpg", "jpeg", "png", "gif", "bmp", "svg", "html", "htm", "xml", "json", "csv", "xls", "xlsx", "ods", "ppt", "pptx", "odp", "mp3", "wav", "ogg", "mp4", "avi", "mkv", "mov"});
+        ui->txtDocumentSuffixes->setText(m_documentSuffixes.join(", "));
+    }
+
     if (settings.contains("chkOpenWith"))
         ui->chkOpenWith->setChecked(settings.value("chkOpenWith").toBool());
     if (settings.contains("chkSudo"))
@@ -379,7 +483,7 @@ void MainWindow::applyIconSet()
     ui->btnDown->setIcon(QIcon(QString(":/icons/%1/Arrow1 Down.png").arg(m_iconSet)));
     ui->btnDelete->setIcon(QIcon(QString(":/icons/%1/Trash.png").arg(m_iconSet)));
     // btnBrowseOpenWith->setIcon(QIcon(QString(":/icons/%1/Folder2.png").arg(m_iconSet)));
-    ui->btnAddShortcut->setIcon(QIcon(QString(":/icons/%1/Plus.png").arg(m_iconSet)));
+    // ui->btnAddShortcut->setIcon(QIcon(QString(":/icons/%1/Plus.png").arg(m_iconSet)));
     ui->btnSelectBackgroundColor->setIcon(QIcon(QString(":/icons/%1/Write.png").arg(m_iconSet)));
     ui->btnLoadTemplate->setIcon(QIcon(QString(":/icons/%1/Folder2.png").arg(m_iconSet)));
     ui->btnSave->setIcon(QIcon(QString(":/icons/%1/Save.png").arg(m_iconSet)));
@@ -679,3 +783,36 @@ void MainWindow::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus
     process->deleteLater();
 }
 
+void MainWindow::applyBrowserSortOrder()
+{
+    qDebug() << "applyBrowserSortOrder: m_browserSortOrder =" << m_browserSortOrder;
+    switch (m_browserSortOrder) {
+        case 0: // Name Ascending
+            qDebug() << "Sorting by Name Ascending (Column 0, AscendingOrder)";
+            fileSystemModel->sort(0, Qt::AscendingOrder);
+            break;
+        case 1: // Name Descending
+            qDebug() << "Sorting by Name Descending (Column 0, DescendingOrder)";
+            fileSystemModel->sort(0, Qt::DescendingOrder);
+            break;
+        case 2: // Date Newest First
+            qDebug() << "Sorting by Date Newest First (Column 3, DescendingOrder)";
+            fileSystemModel->sort(3, Qt::DescendingOrder); // Column 3 is Date Modified
+            break;
+        case 3: // Date Oldest First
+            qDebug() << "Sorting by Date Oldest First (Column 3, AscendingOrder)";
+            fileSystemModel->sort(3, Qt::AscendingOrder); // Column 3 is Date Modified
+            break;
+        default:
+            qDebug() << "Sorting by Default (Name Ascending, Column 0, AscendingOrder)";
+            fileSystemModel->sort(0, Qt::AscendingOrder);
+            break;
+    }
+}
+
+void MainWindow::on_cmbBrowserSortOrder_currentIndexChanged(int index)
+{
+    qDebug() << "on_cmbBrowserSortOrder_currentIndexChanged: index =" << index;
+    m_browserSortOrder = index;
+    applyBrowserSortOrder();
+}
