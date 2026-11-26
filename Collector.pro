@@ -13,7 +13,8 @@ SOURCES += \
     MainWindow.cpp
 
 HEADERS += \
-    MainWindow.h
+    MainWindow.h \
+    version.h
 
 FORMS += \
     MainWindow.ui
@@ -36,3 +37,9 @@ INCLUDEPATH += $$_PRO_FILE_PWD_
 
 RESOURCES += \
    Collector.qrc
+
+DISTFILES += \
+    README.md \
+    TODO \
+    commit_message.txt \
+    generate_version_h.sh

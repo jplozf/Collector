@@ -12,12 +12,29 @@
 #include <QResizeEvent>
 #include <QDebug>
 #include <QProcess>
+#include <QFileDialog>
+#include <QMenu>
+#include <QFile>
+#include <QSignalBlocker>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget *parent, const QString &settingsFilePath, const QString &listFilePath)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // Sous-menu "Recent Lists" inséré dans File, avant "Save List"
+    m_menuRecent = new QMenu(tr("Recent Lists"), this);
+    ui->menuFile->insertMenu(ui->actionSave_List, m_menuRecent);
+
+    if (settingsFilePath.isEmpty()) {
+        m_currentSettingsFilePath = QDir::homePath() + "/.Collector/settings.ini";
+    } else {
+        m_currentSettingsFilePath = settingsFilePath;
+    }
+
+    if (!listFilePath.isEmpty())
+        m_cliListPath = resolveListArgument(listFilePath);
 
     // Ensure checkboxes are unchecked by default
     ui->chkOpenWith->setChecked(false);
@@ -55,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
                 qWarning() << "Error: verticalLayout_2 is not a QVBoxLayout.";
             }
         } else {
-             qWarning() << "Error: Could not find verticalLayout_2 item in gridLayout_3.";
+            qWarning() << "Error: Could not find verticalLayout_2 item in gridLayout_3.";
         }
     } else {
         qWarning() << "Error: tabExplorer's layout is not a QGridLayout or not found.";
@@ -79,7 +96,20 @@ MainWindow::MainWindow(QWidget *parent)
     ui->cmbIconSet->addItem("red");
 
     // Read settings, potentially overriding the default
-    readSettings();
+    readSettings(m_currentSettingsFilePath);
+    updateRecentMenu();
+    updateWindowTitle();
+
+    if (m_listReadOnly) {
+        QTimer::singleShot(0, this, [this]() {
+            QMessageBox::warning(this, tr("List in use"),
+                                 tr("The list \"%1\" is already open in another Collector window.\n\n"
+                                    "It is opened read-only here: changes will not be saved.\n"
+                                    "Use File > Open List... to choose another list, or "
+                                    "Save List As... to keep a copy.")
+                                     .arg(QFileInfo(m_currentListFilePath).completeBaseName()));
+        });
+    }
 
     // Initialize browser sort order
     m_browserSortOrder = 0; // Default to Name Ascending
@@ -125,6 +155,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->tvwBrowser, &QTreeView::clicked, this, &MainWindow::on_tvwBrowser_clicked);
 
     restoreWindowGeometry();
+
+    setLocked(true);   // l'interface démarre toujours verrouillée
 }
 
 MainWindow::~MainWindow()
@@ -326,6 +358,8 @@ void MainWindow::on_btnSelectBackgroundColor_clicked()
 {
     QColor newColor = QColorDialog::getColor(m_backgroundColor, this, "Select Background Color");
     if (newColor.isValid()) {
+        m_geometry = saveGeometry();
+        m_state = saveState();
         m_backgroundColor = newColor;
         applyBackgroundColor();
         updateBackgroundColorPreview();
@@ -372,18 +406,19 @@ QColor MainWindow::getContrastingTextColor(const QColor &backgroundColor)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    writeSettings();
+    saveList(m_currentListFilePath);
+    writeSettings(m_currentSettingsFilePath);
     event->accept();
 }
 
-void MainWindow::writeSettings()
+void MainWindow::writeSettings(const QString &filePath)
 {
-    QString path = QDir::homePath() + "/.Collector";
-    QDir dir(path);
+    QFileInfo fileInfo(filePath);
+    QDir dir(fileInfo.absolutePath());
     if (!dir.exists())
         dir.mkpath(".");
 
-    QSettings settings(path + "/settings.ini", QSettings::IniFormat);
+    QSettings settings(filePath, QSettings::IniFormat);
 
     settings.setValue("geometry", saveGeometry());
     settings.setValue("state", saveState());
@@ -403,13 +438,18 @@ void MainWindow::writeSettings()
     }
     settings.setValue("openWithCommands", commands);
 
-    writeItemsRecursive(settings, "shortcuts", launcherModel->invisibleRootItem());
+    if (m_cliListPath.isEmpty())   // une liste imposée en ligne de commande n'écrase pas la dernière liste
+        settings.setValue("lastListFile", m_currentListFilePath);
+    settings.setValue("recentLists", m_recentLists);
+
+    // Les raccourcis vivent désormais dans les fichiers de liste.
+    // On supprime l'ancienne section pour ne pas garder de données périmées.
+    settings.remove("shortcuts");
 }
 
-void MainWindow::readSettings()
+void MainWindow::readSettings(const QString &filePath)
 {
-    QString path = QDir::homePath() + "/.Collector";
-    QSettings settings(path + "/settings.ini", QSettings::IniFormat);
+    QSettings settings(filePath, QSettings::IniFormat);
 
     if (settings.contains("geometry"))
         m_geometry = settings.value("geometry").toByteArray();
@@ -466,8 +506,39 @@ void MainWindow::readSettings()
     if (settings.contains("openWithCommands"))
         cbxOpenWith->addItems(settings.value("openWithCommands").toStringList());
 
+    // --- Liste de raccourcis courante ---
+    m_recentLists = settings.value("recentLists").toStringList();
+    const QString lastList = settings.value("lastListFile").toString();
+
+    // Migration : ancien format (raccourcis dans settings.ini) -> lists/default.ini
+    if (lastList.isEmpty() && !QFileInfo::exists(defaultListPath())) {
+        const int legacyCount = settings.beginReadArray("shortcuts");
+        settings.endArray();
+        if (legacyCount > 0) {
+            QStandardItemModel legacy;
+            readItemsRecursive(settings, "shortcuts", legacy.invisibleRootItem());
+            QDir().mkpath(listsDirectory());
+            QSettings dst(defaultListPath(), QSettings::IniFormat);
+            dst.clear();
+            writeItemsRecursive(dst, "shortcuts", legacy.invisibleRootItem());
+            dst.sync();
+        }
+    }
+
+    // Priorité : liste de la ligne de commande > dernière liste > default.ini
+    if (!m_cliListPath.isEmpty())
+        m_currentListFilePath = m_cliListPath;
+    else if (!lastList.isEmpty())
+        m_currentListFilePath = lastList;
+    else
+        m_currentListFilePath = defaultListPath();
+
+    m_listLock = tryLockList(m_currentListFilePath);
+    m_listReadOnly = (m_listLock == nullptr);
+
     launcherModel->clear();
-    readItemsRecursive(settings, "shortcuts", launcherModel->invisibleRootItem());
+    if (QFileInfo::exists(m_currentListFilePath))
+        loadList(m_currentListFilePath);
 }
 
 void MainWindow::applyIconSet()
@@ -488,10 +559,15 @@ void MainWindow::applyIconSet()
     ui->btnLoadTemplate->setIcon(QIcon(QString(":/icons/%1/Folder2.png").arg(m_iconSet)));
     ui->btnSave->setIcon(QIcon(QString(":/icons/%1/Save.png").arg(m_iconSet)));
     ui->btnCreateShortcut->setIcon(QIcon(QString(":/icons/%1/Star.png").arg(m_iconSet)));
+    updateLockButton();
 }
 
 void MainWindow::on_cmbIconSet_currentIndexChanged(int index)
 {
+    if (isVisible()) {
+        m_geometry = saveGeometry();
+        m_state = saveState();
+    }
     m_iconSet = ui->cmbIconSet->itemText(index);
     applyIconSet();
     restoreWindowGeometry();
@@ -735,7 +811,7 @@ void readItemsRecursive(QSettings &settings, const QString &groupName, QStandard
         parentItem->appendRow(newItem);
 
         if (settings.childGroups().contains("children", Qt::CaseInsensitive)) {
-             readItemsRecursive(settings, "children", newItem);
+            readItemsRecursive(settings, "children", newItem);
         }
     }
     settings.endArray();
@@ -787,26 +863,26 @@ void MainWindow::applyBrowserSortOrder()
 {
     qDebug() << "applyBrowserSortOrder: m_browserSortOrder =" << m_browserSortOrder;
     switch (m_browserSortOrder) {
-        case 0: // Name Ascending
-            qDebug() << "Sorting by Name Ascending (Column 0, AscendingOrder)";
-            fileSystemModel->sort(0, Qt::AscendingOrder);
-            break;
-        case 1: // Name Descending
-            qDebug() << "Sorting by Name Descending (Column 0, DescendingOrder)";
-            fileSystemModel->sort(0, Qt::DescendingOrder);
-            break;
-        case 2: // Date Newest First
-            qDebug() << "Sorting by Date Newest First (Column 3, DescendingOrder)";
-            fileSystemModel->sort(3, Qt::DescendingOrder); // Column 3 is Date Modified
-            break;
-        case 3: // Date Oldest First
-            qDebug() << "Sorting by Date Oldest First (Column 3, AscendingOrder)";
-            fileSystemModel->sort(3, Qt::AscendingOrder); // Column 3 is Date Modified
-            break;
-        default:
-            qDebug() << "Sorting by Default (Name Ascending, Column 0, AscendingOrder)";
-            fileSystemModel->sort(0, Qt::AscendingOrder);
-            break;
+    case 0: // Name Ascending
+        qDebug() << "Sorting by Name Ascending (Column 0, AscendingOrder)";
+        fileSystemModel->sort(0, Qt::AscendingOrder);
+        break;
+    case 1: // Name Descending
+        qDebug() << "Sorting by Name Descending (Column 0, DescendingOrder)";
+        fileSystemModel->sort(0, Qt::DescendingOrder);
+        break;
+    case 2: // Date Newest First
+        qDebug() << "Sorting by Date Newest First (Column 3, DescendingOrder)";
+        fileSystemModel->sort(3, Qt::DescendingOrder); // Column 3 is Date Modified
+        break;
+    case 3: // Date Oldest First
+        qDebug() << "Sorting by Date Oldest First (Column 3, AscendingOrder)";
+        fileSystemModel->sort(3, Qt::AscendingOrder); // Column 3 is Date Modified
+        break;
+    default:
+        qDebug() << "Sorting by Default (Name Ascending, Column 0, AscendingOrder)";
+        fileSystemModel->sort(0, Qt::AscendingOrder);
+        break;
     }
 }
 
@@ -815,4 +891,297 @@ void MainWindow::on_cmbBrowserSortOrder_currentIndexChanged(int index)
     qDebug() << "on_cmbBrowserSortOrder_currentIndexChanged: index =" << index;
     m_browserSortOrder = index;
     applyBrowserSortOrder();
+}
+
+// ===========================================================================
+//  Gestion des listes : un fichier .ini par liste
+// ===========================================================================
+
+static QString listFilter()
+{
+    return QObject::tr("Collector Lists (*.ini)");
+}
+
+static QString withIniSuffix(const QString &path)
+{
+    return QFileInfo(path).suffix().isEmpty() ? path + ".ini" : path;
+}
+
+QString MainWindow::listsDirectory() const
+{
+    return QDir::homePath() + "/.Collector/lists";
+}
+
+QString MainWindow::defaultListPath() const
+{
+    return listsDirectory() + "/default.ini";
+}
+
+void MainWindow::loadList(const QString &filePath)
+{
+    QSettings list(filePath, QSettings::IniFormat);
+
+    // Apparence propre à la liste. Une clé absente (liste créée avant cette
+    // fonctionnalité) laisse l'apparence actuelle inchangée.
+    if (list.contains("backgroundColor")) {
+        QColor color(list.value("backgroundColor").toString());
+        if (color.isValid())
+            m_backgroundColor = color;
+    }
+    if (list.contains("iconSet")) {
+        const QString iconSet = list.value("iconSet").toString();
+        if (ui->cmbIconSet->findText(iconSet) != -1)
+            m_iconSet = iconSet;
+    }
+    if (list.contains("geometry"))
+        m_geometry = list.value("geometry").toByteArray();
+    if (list.contains("state"))
+        m_state = list.value("state").toByteArray();
+
+    launcherModel->clear();
+    readItemsRecursive(list, "shortcuts", launcherModel->invisibleRootItem());
+
+    applyListAppearance();
+}
+
+void MainWindow::applyListAppearance()
+{
+    {
+        // Met à jour la combo sans redéclencher on_cmbIconSet_currentIndexChanged
+        QSignalBlocker blocker(ui->cmbIconSet);
+        const int index = ui->cmbIconSet->findText(m_iconSet);
+        if (index != -1)
+            ui->cmbIconSet->setCurrentIndex(index);
+    }
+    applyBackgroundColor();          // restaure aussi la géométrie
+    updateBackgroundColorPreview();
+    applyIconSet();
+}
+
+bool MainWindow::saveList(const QString &filePath)
+{
+    if (filePath.isEmpty())
+        return false;
+    if (filePath == m_currentListFilePath && m_listReadOnly)
+        return false;   // ouverte ailleurs : on n'écrase rien
+
+    QDir().mkpath(QFileInfo(filePath).absolutePath());
+
+    QSettings list(filePath, QSettings::IniFormat);
+    list.clear(); // évite de garder des entrées/enfants périmés d'une ancienne version
+    list.setValue("formatVersion", 2);
+    list.setValue("geometry", saveGeometry());
+    list.setValue("state", saveState());
+    list.setValue("backgroundColor", m_backgroundColor.name());
+    list.setValue("iconSet", m_iconSet);
+    writeItemsRecursive(list, "shortcuts", launcherModel->invisibleRootItem());
+    list.sync();
+
+    if (list.status() != QSettings::NoError) {
+        QMessageBox::warning(this, tr("Save List"),
+                             tr("Unable to write the list to:\n%1").arg(filePath));
+        return false;
+    }
+    return true;
+}
+
+void MainWindow::setCurrentList(const QString &filePath)
+{
+    m_currentListFilePath = filePath;
+    m_recentLists.removeAll(filePath);
+    m_recentLists.prepend(filePath);
+    while (m_recentLists.size() > 8)
+        m_recentLists.removeLast();
+    updateRecentMenu();
+    updateWindowTitle();
+}
+
+bool MainWindow::openList(const QString &filePath)
+{
+    if (!QFileInfo::exists(filePath)) {
+        QMessageBox::warning(this, tr("Open List"), tr("File not found:\n%1").arg(filePath));
+        m_recentLists.removeAll(filePath);
+        updateRecentMenu();
+        return false;
+    }
+
+    saveList(m_currentListFilePath);   // sauvegarde automatique de la liste qu'on quitte
+    if (!switchListLock(filePath))
+        return false;
+    loadList(filePath);
+    setCurrentList(filePath);
+    ui->statusbar->showMessage(tr("List loaded: %1").arg(QFileInfo(filePath).fileName()), 3000);
+    return true;
+}
+
+void MainWindow::updateRecentMenu()
+{
+    m_menuRecent->clear();
+    for (const QString &path : m_recentLists) {
+        QAction *action = m_menuRecent->addAction(QFileInfo(path).completeBaseName());
+        action->setToolTip(path);
+        action->setEnabled(path != m_currentListFilePath);
+        connect(action, &QAction::triggered, this, [this, path]() { openList(path); });
+    }
+    m_menuRecent->setEnabled(!m_menuRecent->isEmpty());
+}
+
+void MainWindow::on_actionNew_List_triggered()
+{
+    QString path = QFileDialog::getSaveFileName(this, tr("New List"), listsDirectory(), listFilter());
+    if (path.isEmpty())
+        return;
+    path = withIniSuffix(path);
+
+    saveList(m_currentListFilePath);
+    if (!switchListLock(path))
+        return;
+    launcherModel->clear();
+    if (saveList(path))
+        setCurrentList(path);
+}
+
+void MainWindow::on_actionOpen_List_triggered()
+{
+    QString startDir = QFileInfo(m_currentListFilePath).absolutePath();
+    if (!QDir(startDir).exists())
+        startDir = listsDirectory();
+
+    const QString path = QFileDialog::getOpenFileName(this, tr("Open List"), startDir, listFilter());
+    if (!path.isEmpty())
+        openList(path);
+}
+
+void MainWindow::on_actionSave_List_triggered()
+{
+    if (m_listReadOnly) {
+        QMessageBox::information(this, tr("Save List"),
+                                 tr("This list is open read-only because another Collector window is using it.\n"
+                                    "Use \"Save List As...\" to save a copy."));
+        return;
+    }
+    if (saveList(m_currentListFilePath))
+        ui->statusbar->showMessage(tr("List saved: %1").arg(QFileInfo(m_currentListFilePath).fileName()), 3000);
+}
+
+void MainWindow::on_actionSave_List_As_triggered()
+{
+    QString path = QFileDialog::getSaveFileName(this, tr("Save List As"), m_currentListFilePath, listFilter());
+    if (path.isEmpty())
+        return;
+    path = withIniSuffix(path);
+
+    if (!switchListLock(path))
+        return;
+    if (saveList(path)) {
+        setCurrentList(path);
+        ui->statusbar->showMessage(tr("List saved: %1").arg(QFileInfo(path).fileName()), 3000);
+    }
+}
+
+// ===========================================================================
+//  Verrouillage de l'interface
+// ===========================================================================
+
+void MainWindow::on_btnLockUnlock_clicked()
+{
+    setLocked(!m_locked);
+}
+
+void MainWindow::setLocked(bool locked)
+{
+    m_locked = locked;
+    const bool editable = !locked;
+
+    // Onglets : seul le lanceur reste accessible quand c'est verrouillé
+    for (int i = 1; i < ui->tabWidget->count(); ++i)
+        ui->tabWidget->setTabEnabled(i, editable);
+    if (locked)
+        ui->tabWidget->setCurrentIndex(0);
+
+    // Modification de la liste
+    ui->txtTopicName->setEnabled(editable);
+    ui->btnAddTopic->setEnabled(editable);
+    ui->btnUp->setEnabled(editable);
+    ui->btnDown->setEnabled(editable);
+    ui->btnDelete->setEnabled(editable);
+    ui->tvwLauncher->setEditTriggers(locked ? QAbstractItemView::NoEditTriggers
+                                            : QAbstractItemView::SelectedClicked);
+
+    // Menu File : on peut toujours ouvrir une liste (navigation), mais pas en créer
+    ui->actionNew_List->setEnabled(editable);
+    ui->actionSave_List_As->setEnabled(editable);
+
+    updateLockButton();
+    ui->statusbar->showMessage(locked ? tr("Locked") : tr("Editing enabled"), 2000);
+}
+
+void MainWindow::updateLockButton()
+{
+    // Icône "Unlock.png" si elle existe dans le jeu d'icônes, sinon "Lock.png"
+    const QString base = QString(":/icons/%1/").arg(m_iconSet);
+    QString iconPath = base + "Lock.png";
+    if (!m_locked && QFile::exists(base + "Unlock.png"))
+        iconPath = base + "Unlock.png";
+
+    ui->btnLockUnlock->setIcon(QIcon(iconPath));
+    ui->btnLockUnlock->setCheckable(true);
+    ui->btnLockUnlock->setChecked(!m_locked);   // enfoncé = modification possible
+    ui->btnLockUnlock->setToolTip(m_locked ? tr("Locked - click to allow editing")
+                                           : tr("Editing enabled - click to lock"));
+}
+
+QString MainWindow::resolveListArgument(const QString &argument) const
+{
+    // Chemin existant (relatif ou absolu) -> tel quel
+    if (QFileInfo::exists(argument))
+        return QFileInfo(argument).absoluteFilePath();
+
+    // Simple nom ("jeux" ou "jeux.ini") -> ~/.Collector/lists/jeux.ini
+    if (!argument.contains('/') && !argument.contains('\\'))
+        return listsDirectory() + "/" + withIniSuffix(argument);
+
+    // Chemin vers un fichier qui n'existe pas encore -> sera créé
+    return QFileInfo(withIniSuffix(argument)).absoluteFilePath();
+}
+
+std::unique_ptr<QLockFile> MainWindow::tryLockList(const QString &filePath)
+{
+    QDir().mkpath(QFileInfo(filePath).absolutePath());
+
+    // ATTENTION : ne pas utiliser ".lock" ! QSettings verrouille lui-même <fichier>.lock
+    // pendant sync() : avec le même nom, la fenêtre s'attendrait elle-même indéfiniment.
+    auto lock = std::make_unique<QLockFile>(filePath + ".inuse");
+    // 0 = jamais périmé "par l'âge" (sinon Qt considère le verrou périmé après 30 s,
+    // même si la fenêtre est toujours ouverte). Un verrou laissé par un processus
+    // qui a planté est quand même détecté et ignoré.
+    lock->setStaleLockTime(0);
+
+    if (!lock->tryLock(0) && lock->error() == QLockFile::LockFailedError)
+        return nullptr;   // une autre fenêtre utilise cette liste
+    return lock;          // (autres erreurs, ex. droits : on continue sans verrou)
+}
+
+bool MainWindow::switchListLock(const QString &filePath)
+{
+    if (filePath == m_currentListFilePath && m_listLock)
+        return true;   // déjà verrouillée par cette fenêtre
+
+    std::unique_ptr<QLockFile> lock = tryLockList(filePath);
+    if (!lock) {
+        QMessageBox::warning(this, tr("List in use"),
+                             tr("This list is already open in another Collector window:\n%1").arg(filePath));
+        return false;
+    }
+    m_listLock = std::move(lock);   // libère l'ancien verrou
+    m_listReadOnly = false;
+    return true;
+}
+
+void MainWindow::updateWindowTitle()
+{
+    QString title = "Collector - " + QFileInfo(m_currentListFilePath).completeBaseName();
+    if (m_listReadOnly)
+        title += tr(" (read-only)");
+    setWindowTitle(title);
 }

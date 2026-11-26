@@ -17,6 +17,9 @@
 #include <QUrl>
 #include <QMessageBox>
 #include <QProcess>
+#include <QMenu>
+#include <QLockFile>
+#include <memory>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -38,7 +41,9 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr,
+                        const QString &settingsFilePath = QString(),
+                        const QString &listFilePath = QString());
     ~MainWindow();
 
 private slots:
@@ -53,6 +58,11 @@ private slots:
     void on_btnDelete_clicked();
     void on_btnAddTopic_clicked();
     void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void on_btnLockUnlock_clicked();
+    void on_actionNew_List_triggered();
+    void on_actionOpen_List_triggered();
+    void on_actionSave_List_triggered();
+    void on_actionSave_List_As_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -67,15 +77,39 @@ private:
     QString m_defaultTerminalEmulator;
     int m_browserSortOrder; // 0: Name Asc, 1: Name Desc, 2: Date Newest, 3: Date Oldest
     QStringList m_documentSuffixes;
+    QString m_currentSettingsFilePath;   // réglages de l'application (settings.ini)
+    QString m_currentListFilePath;       // liste de raccourcis actuellement ouverte
+    QStringList m_recentLists;
+    QMenu *m_menuRecent;
+    QString m_cliListPath;                       // liste demandée sur la ligne de commande
+    std::unique_ptr<QLockFile> m_listLock;       // verrou de la liste courante
+    bool m_listReadOnly = false;
+    bool m_locked = true;                        // interface verrouillée par défaut                 // liste déjà ouverte dans une autre fenêtre
     // QPushButton *btnBrowseOpenWith;
 
     void applyBackgroundColor();
     void updateBackgroundColorPreview();
     QColor getContrastingTextColor(const QColor &backgroundColor);
-    void writeSettings();
-    void readSettings();
+    void writeSettings(const QString &filePath);
+    void readSettings(const QString &filePath);
     void applyIconSet();
     void applyBrowserSortOrder();
+    void updateWindowTitle();
+
+    // --- Gestion des listes (un fichier par liste) ---
+    QString listsDirectory() const;
+    QString defaultListPath() const;
+    void loadList(const QString &filePath);
+    bool saveList(const QString &filePath);
+    bool openList(const QString &filePath);
+    void setCurrentList(const QString &filePath);
+    void updateRecentMenu();
+    void applyListAppearance();
+    void setLocked(bool locked);
+    void updateLockButton();
+    QString resolveListArgument(const QString &argument) const;
+    std::unique_ptr<QLockFile> tryLockList(const QString &filePath);
+    bool switchListLock(const QString &filePath);
     void on_cmbBrowserSortOrder_currentIndexChanged(int index);
 
 protected:
