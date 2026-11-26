@@ -107,6 +107,12 @@ private:
     void applyListAppearance();
     void setLocked(bool locked);
     void updateLockButton();
+
+    // --- Ajout de raccourcis (explorateur, glisser-déposer) ---
+    void appendShortcut(QStandardItem *item, QStandardItem *targetTopic = nullptr);
+    QStandardItem *createShortcutItem(const QString &filePath);
+    QStandardItem *createItemFromDesktopFile(const QString &desktopFilePath);
+    void addDroppedFiles(const QList<QUrl> &urls, const QPoint &viewportPos);
     QString resolveListArgument(const QString &argument) const;
     std::unique_ptr<QLockFile> tryLockList(const QString &filePath);
     bool switchListLock(const QString &filePath);
@@ -114,6 +120,7 @@ private:
 
 protected:
     void closeEvent(QCloseEvent *event) override;
+    bool eventFilter(QObject *watched, QEvent *event) override;
 };
 
 void writeItemsRecursive(QSettings &settings, const QString &groupName, QStandardItem *parentItem);

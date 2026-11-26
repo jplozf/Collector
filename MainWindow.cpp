@@ -15,6 +15,10 @@
 #include <QFileDialog>
 #include <QMenu>
 #include <QFile>
+#include <QTextStream>
+#include <QRegularExpression>
+#include <QMimeData>
+#include <QDropEvent>
 #include <QSignalBlocker>
 
 MainWindow::MainWindow(QWidget *parent, const QString &settingsFilePath, const QString &listFilePath)
@@ -86,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent, const QString &settingsFilePath, const Q
     ui->tvwLauncher->setModel(launcherModel);
     ui->tvwLauncher->header()->hide(); // Hide the header completely
     ui->tvwLauncher->setEditTriggers(QAbstractItemView::SelectedClicked);
+    ui->tvwLauncher->viewport()->installEventFilter(this);   // glisser-déposer de fichiers
 
     // Populate icon set combobox
     ui->cmbIconSet->addItem("blue");
@@ -199,28 +204,7 @@ void MainWindow::on_tvwBrowser_doubleClicked(const QModelIndex &index)
             }
         }
 
-        QModelIndex currentIndex = ui->tvwLauncher->selectionModel()->currentIndex();
-        QStandardItem *parentItem = nullptr;
-
-        if (currentIndex.isValid()) {
-            parentItem = launcherModel->itemFromIndex(currentIndex);
-            // If the selected item is a shortcut (a child itself), get its parent.
-            if (parentItem->parent()) {
-                parentItem = parentItem->parent();
-            }
-        } else {
-            // No selection, find the last top-level item.
-            if (launcherModel->rowCount() > 0) {
-                parentItem = launcherModel->item(launcherModel->rowCount() - 1);
-            }
-        }
-
-        if (parentItem) {
-            parentItem->appendRow(newItem);
-        } else {
-            // No topics exist yet, add to top level.
-            launcherModel->appendRow(newItem);
-        }
+        appendShortcut(newItem);
         ui->statusbar->showMessage("Shortcut added: " + fileNameWithoutExtension, 3000); // Message for 3 seconds
     }
 }
@@ -1080,6 +1064,180 @@ void MainWindow::on_actionSave_List_As_triggered()
 }
 
 // ===========================================================================
+//  Ajout de raccourcis : insertion commune + glisser-déposer
+// ===========================================================================
+
+// Insère un raccourci : dans la rubrique indiquée, sinon dans la rubrique de
+// l'élément sélectionné, sinon dans la dernière rubrique, sinon à la racine.
+void MainWindow::appendShortcut(QStandardItem *item, QStandardItem *targetTopic)
+{
+    QStandardItem *parentItem = targetTopic;
+
+    if (!parentItem) {
+        const QModelIndex currentIndex = ui->tvwLauncher->selectionModel()->currentIndex();
+        if (currentIndex.isValid()) {
+            parentItem = launcherModel->itemFromIndex(currentIndex);
+            // Si l'élément sélectionné est un raccourci (enfant), on prend sa rubrique.
+            if (parentItem && parentItem->parent())
+                parentItem = parentItem->parent();
+        } else if (launcherModel->rowCount() > 0) {
+            parentItem = launcherModel->item(launcherModel->rowCount() - 1);
+        }
+    }
+
+    if (parentItem)
+        parentItem->appendRow(item);
+    else
+        launcherModel->appendRow(item);   // aucune rubrique : à la racine
+}
+
+QStandardItem *MainWindow::createShortcutItem(const QString &filePath)
+{
+    const QFileInfo info(filePath);
+    QString name = info.completeBaseName();
+    if (name.isEmpty())
+        name = info.fileName();
+
+    auto *item = new QStandardItem(name);
+    item->setFlags(item->flags() | Qt::ItemIsEditable);
+    item->setData(filePath, FilePathRole);
+    item->setData(false, SudoRole);
+    item->setData(false, TerminalRole);
+    return item;
+}
+
+// Fichier .desktop (lanceur d'application Linux) -> raccourci avec la commande Exec
+QStandardItem *MainWindow::createItemFromDesktopFile(const QString &desktopFilePath)
+{
+    QFile file(desktopFilePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return nullptr;
+
+    QString name, exec;
+    bool terminal = false;
+    bool inEntry = false;
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        const QString line = in.readLine().trimmed();
+        if (line.startsWith('[')) {
+            inEntry = (line == "[Desktop Entry]");
+            continue;
+        }
+        if (!inEntry)
+            continue;
+        if (line.startsWith("Name="))
+            name = line.mid(5).trimmed();
+        else if (line.startsWith("Exec=") && exec.isEmpty())
+            exec = line.mid(5).trimmed();
+        else if (line.startsWith("Terminal="))
+            terminal = (line.mid(9).trimmed().compare("true", Qt::CaseInsensitive) == 0);
+    }
+
+    if (exec.isEmpty())
+        return nullptr;
+
+    // Codes de champ (%U, %f, %i...) : sans objet ici. "%%" désigne un "%" littéral.
+    exec.replace("%%", QChar(0x1));
+    exec.remove(QRegularExpression("%[a-zA-Z]"));
+    exec.replace(QChar(0x1), "%");
+    exec = exec.simplified();
+
+    if (name.isEmpty())
+        name = QFileInfo(desktopFilePath).completeBaseName();
+
+    auto *item = new QStandardItem(name);
+    item->setFlags(item->flags() | Qt::ItemIsEditable);
+    item->setData(QString(), FilePathRole);
+    item->setData(exec, CustomCommandLineRole);
+    item->setData(false, SudoRole);
+    item->setData(terminal, TerminalRole);
+    return item;
+}
+
+void MainWindow::addDroppedFiles(const QList<QUrl> &urls, const QPoint &viewportPos)
+{
+    // Cible : rubrique sous le curseur (ou rubrique du raccourci survolé)
+    QStandardItem *targetTopic = nullptr;
+    const QModelIndex hitIndex = ui->tvwLauncher->indexAt(viewportPos);
+    if (hitIndex.isValid()) {
+        QStandardItem *hit = launcherModel->itemFromIndex(hitIndex);
+        const bool isShortcut = !hit->data(FilePathRole).toString().isEmpty()
+                                || !hit->data(CustomCommandLineRole).toString().isEmpty();
+        targetTopic = isShortcut ? hit->parent() : hit;
+        ui->tvwLauncher->setCurrentIndex(hitIndex);
+    }
+
+    int added = 0;
+    int ignored = 0;
+    QStandardItem *lastItem = nullptr;
+
+    for (const QUrl &url : urls) {
+        if (!url.isLocalFile()) {
+            ++ignored;
+            continue;
+        }
+        const QString path = url.toLocalFile();
+        const QFileInfo info(path);
+        if (!info.exists() || info.isDir()) {   // les dossiers ne sont pas gérés par le lanceur
+            ++ignored;
+            continue;
+        }
+
+        QStandardItem *item = nullptr;
+        if (info.suffix().compare("desktop", Qt::CaseInsensitive) == 0)
+            item = createItemFromDesktopFile(path);
+        if (!item)
+            item = createShortcutItem(path);
+
+        appendShortcut(item, targetTopic);
+        lastItem = item;
+        ++added;
+    }
+
+    if (lastItem) {
+        if (lastItem->parent())
+            ui->tvwLauncher->expand(lastItem->parent()->index());
+        ui->tvwLauncher->setCurrentIndex(lastItem->index());
+    }
+
+    QString message = tr("%1 shortcut(s) added").arg(added);
+    if (ignored > 0)
+        message += tr(" (%1 ignored: folders or non-local items)").arg(ignored);
+    ui->statusbar->showMessage(message, 5000);
+}
+
+bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == ui->tvwLauncher->viewport()) {
+        switch (event->type()) {
+        case QEvent::DragEnter:
+        case QEvent::DragMove: {
+            auto *dragEvent = static_cast<QDragMoveEvent *>(event);
+            if (!m_locked && dragEvent->mimeData()->hasUrls())
+                dragEvent->acceptProposedAction();
+            else
+                dragEvent->ignore();
+            return true;
+        }
+        case QEvent::Drop: {
+            auto *dropEvent = static_cast<QDropEvent *>(event);
+            if (m_locked || !dropEvent->mimeData()->hasUrls()) {
+                dropEvent->ignore();
+                return true;
+            }
+            dropEvent->acceptProposedAction();
+            addDroppedFiles(dropEvent->mimeData()->urls(), dropEvent->position().toPoint());
+            return true;
+        }
+        default:
+            break;
+        }
+    }
+    return QMainWindow::eventFilter(watched, event);
+}
+
+// ===========================================================================
 //  Verrouillage de l'interface
 // ===========================================================================
 
@@ -1112,8 +1270,9 @@ void MainWindow::setLocked(bool locked)
     ui->actionNew_List->setEnabled(editable);
     ui->actionSave_List_As->setEnabled(editable);
 
+    ui->tvwLauncher->viewport()->setAcceptDrops(editable);   // dépôt de fichiers
     updateLockButton();
-    ui->statusbar->showMessage(locked ? tr("Locked") : tr("Editing enabled"), 2000);
+    ui->statusbar->showMessage(locked ? tr("Locked") : tr("Editing enabled - drop files on the list to add them"), 4000);
 }
 
 void MainWindow::updateLockButton()
