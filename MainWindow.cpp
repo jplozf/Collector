@@ -15,6 +15,9 @@
 #include <QFileDialog>
 #include <QMenu>
 #include <QFile>
+#include <QApplication>
+#include <QFileIconProvider>
+#include <QStyle>
 #include <QTextStream>
 #include <QRegularExpression>
 #include <QMimeData>
@@ -161,6 +164,7 @@ MainWindow::MainWindow(QWidget *parent, const QString &settingsFilePath, const Q
 
     restoreWindowGeometry();
 
+    setupTrayIcon();
     setLocked(true);   // l'interface démarre toujours verrouillée
 }
 
@@ -214,9 +218,12 @@ void MainWindow::on_tvwLauncher_doubleClicked(const QModelIndex &index)
     if (!index.isValid()) {
         return;
     }
+    launchItem(launcherModel->itemFromIndex(index));
+}
 
-    // Retrieve the item from the model
-    QStandardItem *item = launcherModel->itemFromIndex(index);
+// Lance un raccourci (utilisé par le double-clic et par le menu de la zone de notification)
+void MainWindow::launchItem(QStandardItem *item)
+{
     if (!item) {
         return;
     }
@@ -393,6 +400,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     saveList(m_currentListFilePath);
     writeSettings(m_currentSettingsFilePath);
     event->accept();
+    qApp->quit();   // nécessaire : quitOnLastWindowClosed est désactivé quand la zone de notification est utilisée
 }
 
 void MainWindow::writeSettings(const QString &filePath)
@@ -1064,6 +1072,162 @@ void MainWindow::on_actionSave_List_As_triggered()
 }
 
 // ===========================================================================
+//  Zone de notification (system tray)
+// ===========================================================================
+
+bool MainWindow::trayUsable() const
+{
+    return m_trayIcon && m_trayIcon->isVisible() && QSystemTrayIcon::isSystemTrayAvailable();
+}
+
+void MainWindow::setupTrayIcon()
+{
+    if (!QSystemTrayIcon::isSystemTrayAvailable())
+        return;
+
+    // Cacher la fenêtre ne doit pas quitter l'application (ni la fermeture
+    // d'une boîte de dialogue pendant que la fenêtre est cachée). La fermeture
+    // de la fenêtre principale quitte explicitement, voir closeEvent().
+    QApplication::setQuitOnLastWindowClosed(false);
+
+    QIcon icon = windowIcon();
+    if (icon.isNull())
+        icon = QApplication::windowIcon();
+    if (icon.isNull())
+        icon = style()->standardIcon(QStyle::SP_DirIcon);
+
+    m_trayMenu = new QMenu(this);
+    m_trayIcon = new QSystemTrayIcon(icon, this);
+    m_trayIcon->setContextMenu(m_trayMenu);
+    m_trayIcon->setToolTip(windowTitle());
+
+    connect(m_trayIcon, &QSystemTrayIcon::activated, this,
+            [this](QSystemTrayIcon::ActivationReason reason) {
+                if (reason == QSystemTrayIcon::Trigger)
+                    toggleWindow();
+            });
+
+    // Le menu est reconstruit (en différé, regroupé) à chaque modification de la liste
+    m_trayRebuildTimer = new QTimer(this);
+    m_trayRebuildTimer->setSingleShot(true);
+    m_trayRebuildTimer->setInterval(0);
+    connect(m_trayRebuildTimer, &QTimer::timeout, this, &MainWindow::rebuildTrayMenu);
+
+    connect(launcherModel, &QAbstractItemModel::rowsInserted, this, &MainWindow::scheduleTrayRebuild);
+    connect(launcherModel, &QAbstractItemModel::rowsRemoved, this, &MainWindow::scheduleTrayRebuild);
+    connect(launcherModel, &QAbstractItemModel::rowsMoved, this, &MainWindow::scheduleTrayRebuild);
+    connect(launcherModel, &QAbstractItemModel::dataChanged, this, &MainWindow::scheduleTrayRebuild);
+    connect(launcherModel, &QAbstractItemModel::modelReset, this, &MainWindow::scheduleTrayRebuild);
+    connect(launcherModel, &QAbstractItemModel::layoutChanged, this, &MainWindow::scheduleTrayRebuild);
+
+    m_trayIcon->show();
+    rebuildTrayMenu();
+
+    // Alternative au bouton "réduire" (certains environnements, ex. Wayland,
+    // ne signalent pas la réduction de la fenêtre)
+    ui->menuFile->addSeparator();
+    QAction *hideAction = ui->menuFile->addAction(tr("Hide to Tray"));
+    connect(hideAction, &QAction::triggered, this, &QWidget::hide);
+}
+
+void MainWindow::scheduleTrayRebuild()
+{
+    if (m_trayRebuildTimer)
+        m_trayRebuildTimer->start();
+}
+
+void MainWindow::rebuildTrayMenu()
+{
+    if (!m_trayMenu)
+        return;
+
+    // Les sous-menus appartiennent au menu : on les supprime explicitement
+    // pour ne pas les accumuler à chaque reconstruction.
+    qDeleteAll(m_trayMenu->findChildren<QMenu *>(QString(), Qt::FindDirectChildrenOnly));
+    m_trayMenu->clear();
+
+    QAction *titleAction = m_trayMenu->addAction(
+        QFileInfo(m_currentListFilePath).completeBaseName().replace("&", "&&"));
+    QFont titleFont = titleAction->font();
+    titleFont.setBold(true);
+    titleAction->setFont(titleFont);
+    titleAction->setEnabled(false);
+    m_trayMenu->addSeparator();
+
+    if (launcherModel->rowCount() == 0) {
+        m_trayMenu->addAction(tr("(empty list)"))->setEnabled(false);
+    } else {
+        addItemsToTrayMenu(m_trayMenu, launcherModel->invisibleRootItem());
+    }
+
+    m_trayMenu->addSeparator();
+    m_trayMenu->addAction(tr("Show / Hide Window"), this, &MainWindow::toggleWindow);
+    m_trayMenu->addAction(tr("Quit"), this, &QWidget::close);
+}
+
+// Reproduit l'arborescence : rubrique avec enfants -> sous-menu, raccourci -> action
+void MainWindow::addItemsToTrayMenu(QMenu *menu, QStandardItem *parentItem)
+{
+    static QFileIconProvider iconProvider;
+
+    for (int i = 0; i < parentItem->rowCount(); ++i) {
+        QStandardItem *child = parentItem->child(i);
+        if (!child)
+            continue;
+
+        QString label = child->text().trimmed();
+        if (label.isEmpty())
+            label = tr("(unnamed)");
+        label.replace("&", "&&");   // sinon "&" serait pris pour un raccourci clavier
+
+        const QString path = child->data(FilePathRole).toString();
+        const bool isShortcut = !path.isEmpty()
+                                || !child->data(CustomCommandLineRole).toString().isEmpty();
+
+        if (child->hasChildren()) {
+            QMenu *subMenu = menu->addMenu(label);
+            addItemsToTrayMenu(subMenu, child);
+        } else if (isShortcut) {
+            QAction *action = menu->addAction(label);
+            if (!path.isEmpty())
+                action->setIcon(iconProvider.icon(QFileInfo(path)));
+            const QPersistentModelIndex index(child->index());
+            connect(action, &QAction::triggered, this, [this, index]() {
+                if (index.isValid())
+                    launchItem(launcherModel->itemFromIndex(index));
+            });
+        } else {
+            menu->addAction(label)->setEnabled(false);   // rubrique vide
+        }
+    }
+}
+
+void MainWindow::showFromTray()
+{
+    setWindowState(windowState() & ~Qt::WindowMinimized);
+    show();
+    raise();
+    activateWindow();
+}
+
+void MainWindow::toggleWindow()
+{
+    if (isVisible() && !isMinimized())
+        hide();
+    else
+        showFromTray();
+}
+
+void MainWindow::changeEvent(QEvent *event)
+{
+    QMainWindow::changeEvent(event);
+
+    // Réduire la fenêtre = la cacher dans la zone de notification
+    if (event->type() == QEvent::WindowStateChange && isMinimized() && trayUsable())
+        QTimer::singleShot(0, this, &QWidget::hide);
+}
+
+// ===========================================================================
 //  Ajout de raccourcis : insertion commune + glisser-déposer
 // ===========================================================================
 
@@ -1343,4 +1507,8 @@ void MainWindow::updateWindowTitle()
     if (m_listReadOnly)
         title += tr(" (read-only)");
     setWindowTitle(title);
+
+    if (m_trayIcon)
+        m_trayIcon->setToolTip(title);
+    scheduleTrayRebuild();   // le titre de la liste figure dans le menu
 }

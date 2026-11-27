@@ -18,6 +18,7 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QMenu>
+#include <QSystemTrayIcon>
 #include <QLockFile>
 #include <memory>
 
@@ -84,6 +85,9 @@ private:
     QString m_cliListPath;                       // liste demandée sur la ligne de commande
     std::unique_ptr<QLockFile> m_listLock;       // verrou de la liste courante
     bool m_listReadOnly = false;
+    QSystemTrayIcon *m_trayIcon = nullptr;
+    QMenu *m_trayMenu = nullptr;
+    QTimer *m_trayRebuildTimer = nullptr;
     bool m_locked = true;                        // interface verrouillée par défaut                 // liste déjà ouverte dans une autre fenêtre
     // QPushButton *btnBrowseOpenWith;
 
@@ -108,6 +112,16 @@ private:
     void setLocked(bool locked);
     void updateLockButton();
 
+    // --- Lancement et zone de notification (system tray) ---
+    void launchItem(QStandardItem *item);
+    bool trayUsable() const;
+    void setupTrayIcon();
+    void scheduleTrayRebuild();
+    void rebuildTrayMenu();
+    void addItemsToTrayMenu(QMenu *menu, QStandardItem *parentItem);
+    void toggleWindow();
+    void showFromTray();
+
     // --- Ajout de raccourcis (explorateur, glisser-déposer) ---
     void appendShortcut(QStandardItem *item, QStandardItem *targetTopic = nullptr);
     QStandardItem *createShortcutItem(const QString &filePath);
@@ -121,6 +135,7 @@ private:
 protected:
     void closeEvent(QCloseEvent *event) override;
     bool eventFilter(QObject *watched, QEvent *event) override;
+    void changeEvent(QEvent *event) override;
 };
 
 void writeItemsRecursive(QSettings &settings, const QString &groupName, QStandardItem *parentItem);
